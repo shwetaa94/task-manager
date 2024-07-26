@@ -15,16 +15,23 @@ const config = {
           "100": "#c1bdbd",
           "200": "#c0bdbd",
         },
-        gainsboro: "#dedede",
+        gainsboro: {
+          "100": "#dedede",
+          "200": "#ddd",
+        },
         black: "#000",
         dimgray: "#676767",
         lightgray: "#cdcdcd",
-        lightgray2: "#cecece",
-        whitesmoke: "#f4f4f4",
-        gray: "#797979",
-    
-        darkslateblue: "#0054a1",
+        whitesmoke: {
+          "100": "#f4f4f4",
+          "200": "#f3f3f3",
+        },
+        gray: {
+          "100": "#797979",
+          "200": "#080808",
+        },
         blueviolet: "#4b36cd",
+        darkslateblue: "#0054a1",
         mediumslateblue: "#735cf2",
         darkgray: "#999",
         darkslategray: "#2d2d2d",
@@ -65,4 +72,4 @@ const config = {
   plugins: [],
 };
 
-export default config;
+module.exports = config;
