@@ -1,7 +1,8 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+const config = {
   content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,15 +10,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        lightgray: "#cecece",
-        black: "#000",
-        darkslateblue: "#0054a1",
-        dimgray: "#606060",
-        blueviolet: "#4b36cd",
-        gainsboro: "rgba(230, 230, 230, 0.3)",
-        mediumslateblue: "#735cf2",
         white: "#fff",
-        whitesmoke: "#ebebeb",
+        silver: {
+          "100": "#c1bdbd",
+          "200": "#c0bdbd",
+        },
+        gainsboro: "#dedede",
+        black: "#000",
+        dimgray: "#676767",
+        lightgray: "#cdcdcd",
+        lightgray2: "#cecece",
+        whitesmoke: "#f4f4f4",
+        gray: "#797979",
+    
+        darkslateblue: "#0054a1",
+        blueviolet: "#4b36cd",
+        mediumslateblue: "#735cf2",
         darkgray: "#999",
         darkslategray: "#2d2d2d",
         slateblue: "#4534ac",
@@ -29,25 +37,32 @@ const config: Config = {
       },
     },
     fontSize: {
-      xl: "20px",
       base: "16px",
+      inherit: "inherit",
+      xl: "20px",
       "29xl": "48px",
       "10xl": "29px",
       "19xl": "38px",
-      inherit: "inherit",
     },
     screens: {
+      mq625: {
+        raw: "screen and (max-width: 625px)",
+      },
+      mq450: {
+        raw: "screen and (max-width: 450px)",
+      },
       mq750: {
         raw: "screen and (max-width: 750px)",
       },
       mq675: {
         raw: "screen and (max-width: 675px)",
       },
-      mq450: {
-        raw: "screen and (max-width: 450px)",
-      },
     },
+  },
+  corePlugins: {
+    preflight: false,
   },
   plugins: [],
 };
+
 export default config;
