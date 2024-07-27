@@ -1,4 +1,6 @@
-import type { NextPage } from "next";
+"use client";
+
+import { useState } from "react";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import { CiCalendarDate } from "react-icons/ci";
 import { GoPencil } from "react-icons/go";
@@ -8,95 +10,127 @@ import { MdPriorityHigh } from "react-icons/md";
 import { RiLoaderFill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 
-const CreateTask = () => {
+const CreateTask: React.FC = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("Not selected");
+  const [priority, setPriority] = useState("Not selected");
+  const [deadline, setDeadline] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle task submission here
+    console.log({
+      title,
+      description,
+      status,
+      priority,
+      deadline,
+    });
+  };
+
   return (
-    <div className="w-screen overflow-hidden flex flex-col items-start justify-start pt-4 px-6 pb-[513px] box-border gap-[32px] leading-[normal] tracking-[normal] text-left text-base text-silver-200 font-inter mq450:gap-[16px] ">
-      <section className=" w-[60%] self-stretch flex flex-col items-start justify-start gap-[27px] text-left text-[48px] text-lightgray font-barlow">
+    <div className="w-screen overflow-hidden flex flex-col items-start justify-start pt-4 px-6 pb-[513px] box-border gap-[32px] leading-[normal] tracking-[normal] text-left text-base text-silver-200 font-inter mq450:gap-[16px]">
+      <section className="w-[60%] self-stretch flex flex-col items-start justify-start gap-[27px] text-left text-[48px] text-lightgray font-barlow">
         <header className="w-screen self-stretch flex flex-row items-center justify-between text-left text-base text-gray font-inter">
-          <div className="flex flex-row   items-center justify-start gap-[16px] w-full">
+          <div className="flex  flex-row items-center justify-start gap-[16px] w-full">
             <div className="flex gap-6">
-              <RxCross2 className="h-6 w-6 relative overflow-hidden shrink-0 min-h-[24px]" />
-              <BsArrowsAngleExpand className="h-5 w-5 relative overflow-hidden shrink-0 min-h-[24px]" />
+              <RxCross2 className="h-6 w-6 relative overflow-hidden min-h-[24px]" />
+              <BsArrowsAngleExpand className="h-5 w-5 relative overflow-hidden min-h-[24px]" />
             </div>
           </div>
           <div className="flex flex-row items-center justify-start gap-[16px]">
             <div className="rounded bg-whitesmoke overflow-hidden flex flex-row items-center justify-start p-2 gap-[14px]">
-              <a className="[text-decoration:none] relative text-[inherit] inline-block min-w-[44px]">
+              <a className="text-decoration-none relative text-inherit inline-block min-w-[44px]">
                 Share
               </a>
-              <IoShareSocialOutline className="h-6 w-6 relative overflow-hidden shrink-0" />
+              <IoShareSocialOutline className="h-6 w-6 relative overflow-hidden" />
             </div>
             <div className="rounded bg-whitesmoke overflow-hidden flex flex-row items-center justify-start p-2 gap-[14px]">
-              <a className="[text-decoration:none] relative text-[inherit] inline-block min-w-[44px]">
+              <a className="text-decoration-none relative text-inherit inline-block min-w-[44px]">
                 Favourite
               </a>
               <IoMdStarOutline className="h-6 w-6 relative overflow-hidden shrink-0" />
             </div>
           </div>
         </header>
-        <div className="self-stretch flex flex-col items-start justify-start gap-[38px] mq625:gap-[19px]">
+        <form
+          onSubmit={handleSubmit}
+          className="self-stretch w-[60%]  flex flex-col items-center justify-start gap-[38px] mq625:gap-[19px]"
+        >
           <div className="self-stretch flex flex-col items-start justify-start gap-[32px] mq625:gap-[16px]">
-            <h1 className="m-0 self-stretch relative text-inherit font-semibold font-inherit">
-              Title
-            </h1>
-            <div className="self-stretch flex flex-row items-start justify-between py-0 pr-[329px] pl-0 gap-[20px] text-base text-dimgray font-inter mq450:pr-5 mq450:box-border mq625:flex-wrap mq625:pr-[164px] mq625:box-border">
-              <div className="flex flex-col items-start justify-start gap-[32px] min-w-[136px] mq625:flex-1">
-                <div className="flex flex-row items-center justify-start gap-[24px]">
-                  <RiLoaderFill className="h-6 w-6 relative overflow-hidden shrink-0" />
-                  <div className="relative inline-block min-w-[49px]">
-                    Status
-                  </div>
+            <input
+              className="w-full border-none outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl text-darkgray mt-2"
+              placeholder="Task Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+            <div className="w-full flex flex-col items-center justify-between gap-[20px] text-base text-dimgray font-inter">
+              <div className="w-full flex flex-col items-center justify-between gap-[24px] flex-1">
+                <div className="w-full flex flex-row items-center justify-between gap-[24px] flex-1">
+                  <RiLoaderFill className="h-6 w-6 relative overflow-hidden " />
+                  <select
+                    className="w-60 border-none outline-none bg-whitesmoke h-14 rounded-lg font-inter text-xl text-darkgray"
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                    required
+                  >
+                    <option value="Not selected">Not selected</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                  </select>
                 </div>
-                <div className="flex flex-row items-center justify-start gap-[22px]">
+                <div className="w-full flex flex-row items-center justify-between gap-[24px] flex-1">
                   <MdPriorityHigh className="h-6 w-6 relative overflow-hidden shrink-0" />
-
-                  <div className="relative inline-block min-w-[54px]">
-                    Priority
-                  </div>
+                  <select
+                    className="w-60 border-none outline-none bg-whitesmoke h-14 rounded-lg font-inter text-xl text-darkgray"
+                    value={priority}
+                    onChange={(e) => setPriority(e.target.value)}
+                  >
+                    <option value="Not selected">Not selected</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Urgent">Urgent</option>
+                  </select>
                 </div>
-                <div className="flex flex-row items-center justify-start py-0 pr-5 pl-0 gap-[25px]">
-                  <CiCalendarDate className="h-6 w-6 relative overflow-hidden shrink-0" />
-                  <div className="relative inline-block min-w-[67px]">
-                    Deadline
-                  </div>
+                <div className="w-full flex flex-row items-center justify-between gap-[24px] flex-1">
+                  <CiCalendarDate className="h-6 w-6 relative overflow-hidden" />
+                  <input
+                    className="w-60 border-none outline-none bg-whitesmoke h-14 rounded-lg font-inter text-xl text-darkgray"
+                    type="date"
+                    value={deadline}
+                    onChange={(e) => setDeadline(e.target.value)}
+                  />
                 </div>
-                <div className="flex flex-row items-center justify-start gap-[25px]">
-                  <GoPencil className="h-6 w-6 relative overflow-hidden shrink-0" />
-                  <div className="relative inline-block min-w-[87px]">
-                    Description
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-start gap-[32px] min-w-[97px] text-silver-100 mq625:flex-1">
-                <div className="relative leading-[24px] inline-block min-w-[97px]">
-                  Not selected
-                </div>
-                <div className="relative leading-[24px] inline-block min-w-[97px]">
-                  Not selected
-                </div>
-                <div className="relative leading-[24px] inline-block min-w-[97px]">
-                  Not selected
-                </div>
-                <div className="relative leading-[24px] inline-block min-w-[97px]">
-                  Not selected
+                <div className="w-full flex flex-row items-center justify-between gap-[24px] flex-1">
+                  <GoPencil className="h-6 w-6 relative overflow-hidden" />
+                  <textarea
+                    className="w-60 border-none outline-none bg-whitesmoke  rounded-lg font-inter text-xl text-darkgray"
+                    placeholder="Task Description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
                 </div>
               </div>
             </div>
           </div>
-          <button className="cursor-pointer [border:none] p-0 bg-[transparent] flex flex-row items-center justify-start gap-[23px]">
-            <IoMdAdd className="h-6 w-6 relative overflow-hidden shrink-0" />
 
-            <div className="relative text-base font-inter text-black text-left">
+          <button className="w-full cursor-pointer [border:none] p-0 bg-transparent flex flex-row items-center justify-between gap-[23px]">
+            <IoMdAdd className="h-6 w-6 relative overflow-hidden" />
+            <div className="w-60 border-none outline-none bg-whitesmoke  rounded-lg font-inter text-xl text-darkgray">
               Add custom property
             </div>
           </button>
-        </div>
+        </form>
       </section>
-      <div className="self-stretch h-px relative bg-gainsboro overflow-hidden shrink-0" />
+      <hr className=" w-full text-darkgray" />
+      <div className="self-stretch  relative bg-gainsboro " />
       <div className="self-stretch relative">
         Start writing, or drag your own files here.
       </div>
     </div>
   );
 };
+
 export default CreateTask;

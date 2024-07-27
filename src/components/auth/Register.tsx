@@ -8,11 +8,30 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleRegister = (e: React.FormEvent) => {
+  const [error, setError]= useState("")
+  
+  const handleRegister =async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Registration successful");
-    router.push("/"); // Navigate to the home page after registration
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Handle successful registration (e.g., redirect to login)
+        router.push('/login');
+      } else {
+        setError(data.message || 'Registration failed');
+      }
+    } catch (error) {
+      setError('An unexpected error occurred');
+    }
   };
 
   return (

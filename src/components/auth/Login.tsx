@@ -7,12 +7,31 @@ const Login: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // For displaying errors
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle the login logic here, e.g., form validation or API request.
-    console.log("Login successful");
-    router.push("/"); // Navigate to the home page after login
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Handle successful login (e.g., redirect to home)
+        router.push("/");
+      } else {
+        setError(data.message || "Login failed");
+      }
+    } catch (error) {
+      setError("An unexpected error occurred");
+    }
   };
 
   return (
@@ -38,16 +57,14 @@ const Login: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            
-              <input
-               className="w-full border-none outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl text-darkgray min-w-[250px] cursor-pointer"
-               placeholder="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              
+            <input
+              className="w-full border-none outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl text-darkgray min-w-[250px] cursor-pointer"
+              placeholder="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
           <button
             className="cursor-pointer py-3 px-5 bg-transparent self-stretch shadow-[0px_12px_16px_rgba(186,_186,_186,_0.2)_inset,_0px_4px_16px_rgba(0,_0,_0,_0.1)] rounded-lg bg-gradient-to-b from-purple-500 to-blue-900 border border-blueviolet hover:bg-gainsboro hover:border-mediumslateblue"
@@ -58,6 +75,7 @@ const Login: React.FC = () => {
             </div>
           </button>
         </form>
+        {error && <p className="text-red-500">{error}</p>}
       </div>
       <div className="flex flex-row items-start justify-center gap-1 text-xl text-dimgray font-inter mq675:flex-wrap">
         <div className="relative mq450:text-base">
