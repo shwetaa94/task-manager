@@ -1,11 +1,13 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { router } from './router';
+import connectDB from './utils/db';
+
 const app = express();
 
 app.use(cors());
 app.use(express.json())
-connectedDB();
+connectDB();
 
 app.get('/', (req: Request,res:Response)=>{
     res.send('backend activated');
