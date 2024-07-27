@@ -1,21 +1,12 @@
-// src/controllers/task.ts
-import { Request, Response } from "express";
-import Task from "../modals/task";
-import { TaskStatus, TaskPriority } from "../utils/types";
+import { Request, Response } from 'express';
+import Task from '../models/task';
 
+// Create a new task
 export const createTask = async (req: Request, res: Response) => {
   const { title, description, status, priority, deadline } = req.body;
 
-  if (!Object.values(TaskStatus).includes(status)) {
-    return res.status(400).json({ message: "Invalid status value" });
-  }
-
-  if (priority && !Object.values(TaskPriority).includes(priority)) {
-    return res.status(400).json({ message: "Invalid priority value" });
-  }
-
   try {
-    const task = new Task({
+    const newTask = new Task({
       title,
       description,
       status,
@@ -23,14 +14,85 @@ export const createTask = async (req: Request, res: Response) => {
       deadline,
     });
 
-    await task.save();
+    await newTask.save();
 
-    return res.status(201).json({ message: "Task created successfully", task });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Internal server error while creating task" });
+    res.status(201).json({
+      message: 'Task created successfully',
+      task: newTask,
+    });
+  } catch (error:any) {
+    console.error(error);
+    res.status(500).json({
+      message: 'Error creating task',
+      error: error.message,
+    });
   }
 };
 
-// Add other CRUD operations as needed
+// Get all tasks
+export const getTasks = async (req: Request, res: Response) => {
+  try {
+    const tasks = await Task.find();
+    res.status(200).json(tasks);
+  } catch (error:any) {
+    console.error(error);
+    res.status(500).json({
+      message: 'Error fetching tasks',
+      error: error.message,
+    });
+  }
+};
+
+
+// Update a task by ID
+export const updateTask = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { title, description, status, priority, deadline } = req.body;
+
+  try {
+    const updatedTask = await Task.findByIdAndUpdate(
+      id,
+      { title, description, status, priority, deadline },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedTask) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    res.status(200).json({
+      message: 'Task updated successfully',
+      task: updatedTask,
+    });
+  } catch (error:any) {
+    console.error(error);
+    res.status(500).json({
+      message: 'Error updating task',
+      error: error.message,
+    });
+  }
+};
+
+// Delete a task by ID
+export const deleteTask = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const deletedTask = await Task.findByIdAndDelete(id);
+
+    if (!deletedTask) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    res.status(200).json({
+      message: 'Task deleted successfully',
+      task: deletedTask,
+    });
+  } catch (error:any) {
+    console.error(error);
+    res.status(500).json({
+      message: 'Error deleting task',
+      error: error.message,
+    });
+  }
+};

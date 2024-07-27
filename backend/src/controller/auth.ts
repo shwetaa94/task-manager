@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
-import User from "../modals/user"; // Adjust the import path as per your project structure
+import User from "../models/user"; // Adjust the import path as per your project structure
 
 const JWT_SECRET = "mysecretcode"; // Use environment variable for the secret
 
