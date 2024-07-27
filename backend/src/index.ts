@@ -5,7 +5,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json())
-
+connectedDB();
 
 app.get('/', (req: Request,res:Response)=>{
     res.send('backend activated');
