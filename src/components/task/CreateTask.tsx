@@ -26,12 +26,10 @@ const CreateTask = () => {
               </a>
               <IoShareSocialOutline className="h-6 w-6 relative overflow-hidden shrink-0" />
             </div>
-            <div className="flex-1 rounded bg-whitesmoke overflow-hidden flex flex-row items-center justify-start p-2 gap-[14px]">
-              <input
-                className="w-[calc(100%_-_64px)] [border:none] [outline:none] font-inter text-base bg-[transparent] h-[19px] flex-1 relative text-gray text-left inline-block min-w-[37px] p-0"
-                placeholder="Favorite"
-                type="text"
-              />
+            <div className="rounded bg-whitesmoke overflow-hidden flex flex-row items-center justify-start p-2 gap-[14px]">
+              <a className="[text-decoration:none] relative text-[inherit] inline-block min-w-[44px]">
+                Favourite
+              </a>
               <IoMdStarOutline className="h-6 w-6 relative overflow-hidden shrink-0" />
             </div>
           </div>

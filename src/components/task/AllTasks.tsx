@@ -12,7 +12,7 @@ import { GoQuestion } from "react-icons/go";
 
 const MainPage = () => {
   return (
-    <div className="w-full h-screen mx-4 flex flex-col bg-whitesmoke-100 items-start justify-start gap-[16px] leading-[normal] tracking-[normal]">
+    <div className="w-full h-screen pl-4 flex flex-col bg-whitesmoke-100 items-start justify-start gap-[16px] leading-[normal] tracking-[normal]">
       <header className="w-full h-auto self-stretch flex flex-col items-end justify-start gap-[16px]  text-left text-[48px] text-gray-500 font-barlow">
         <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">
           <a className="[text-decoration:none] relative font-semibold text-[inherit] whitespace-nowrap">
