@@ -14,18 +14,12 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 const MainPage = () => {
-  const router = useRouter();
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("token");
-
-      if (!token) {
-        router.push("/login");
-        return;
-      }
 
       try {
         const response = await fetch("http://localhost:8000/api/v1/task", {
@@ -49,7 +43,7 @@ const MainPage = () => {
     };
 
     fetchData();
-  }, [router]);
+  });
 
   if (error) {
     return <div className="error">{error}</div>;

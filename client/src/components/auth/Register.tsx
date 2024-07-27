@@ -13,7 +13,7 @@ const Register = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      console.log("Resguet");
+      console.log(name, email, password);
       const response = await fetch(
         "http://localhost:8000/api/v1/auth/register",
         {
@@ -21,7 +21,11 @@ const Register = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name, email, password }),
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+          }),
         }
       );
 

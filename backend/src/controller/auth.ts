@@ -21,7 +21,6 @@ const loginSchema = z.object({
 export const register = async (req: Request, res: Response) => {
   // Validate input using zod
   const parseResult = registerSchema.safeParse(req.body);
-
   if (!parseResult.success) {
     return res.status(400).json({ errors: parseResult.error.errors });
   }
@@ -34,7 +33,6 @@ export const register = async (req: Request, res: Response) => {
     if (existingUser) {
       return res.status(409).json({ message: "Email already exists" });
     }
-
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -52,7 +50,6 @@ export const register = async (req: Request, res: Response) => {
       JWT_SECRET,
       { expiresIn: "1h" } // Token expiration time
     );
-
     return res
       .status(201)
       .json({ token, message: "User created successfully" });
