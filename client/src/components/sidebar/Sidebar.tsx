@@ -6,13 +6,13 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { LuBellDot } from "react-icons/lu";
 import { MdFileDownload } from "react-icons/md";
 import { PiFastForward } from "react-icons/pi";
+import { RiLoaderFill } from "react-icons/ri";
 import { TbClipboardData } from "react-icons/tb";
-import { TfiShine } from "react-icons/tfi";
 import { VscGraphLine } from "react-icons/vsc";
 
 const Sidebar = () => {
   return (
-    <div className="w-full bg-white box-border flex flex-col items-start justify-between pt-6 px-[15px] pb-8 min-h-[1024px] leading-[normal] tracking-[normal] text-left text-xl text-dimgray font-inter border-r-[1px] border-solid border-gainsboro-100 ">
+    <div className="w-full h-screen bg-white box-border flex flex-col items-start justify-between pt-6 px-[15px] pb-8  leading-[normal] tracking-[normal] text-left text-xl text-dimgray font-inter">
       <section className="self-stretch flex flex-col items-start justify-start py-0 pr-px pl-0 gap-[16px] text-left text-xl text-gray-200 font-inter">
         <div className="self-stretch flex flex-col items-start justify-start gap-[8px]">
           <div className="self-stretch flex flex-row items-center justify-start">
@@ -26,7 +26,7 @@ const Sidebar = () => {
           <div className="self-stretch flex flex-row items-center justify-between gap-[20px] text-[16px] text-gray-100">
             <div className="flex flex-row items-center justify-start gap-[20px]">
               <LuBellDot className="h-6 w-6 relative overflow-hidden shrink-0 min-h-[24px]" />
-              <TfiShine className="h-6 w-6 relative overflow-hidden shrink-0 min-h-[24px]" />
+              <RiLoaderFill className="h-6 w-6 relative overflow-hidden shrink-0 min-h-[24px]" />
               <PiFastForward className="h-6 w-6 relative overflow-hidden shrink-0 min-h-[24px]" />
             </div>
             <div

@@ -5,8 +5,8 @@ import { GoPencil } from "react-icons/go";
 import { IoMdAdd, IoMdStarOutline } from "react-icons/io";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { MdPriorityHigh } from "react-icons/md";
+import { RiLoaderFill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
-import { TfiShine } from "react-icons/tfi";
 
 const CreateTask = () => {
   return (
@@ -44,7 +44,7 @@ const CreateTask = () => {
               <div className="self-stretch flex flex-row items-start justify-between py-0 pr-[329px] pl-0 gap-[20px] text-base text-dimgray font-inter mq450:pr-5 mq450:box-border mq625:flex-wrap mq625:pr-[164px] mq625:box-border">
                 <div className="flex flex-col items-start justify-start gap-[32px] min-w-[136px] mq625:flex-1">
                   <div className="flex flex-row items-center justify-start gap-[24px]">
-                    <TfiShine className="h-6 w-6 relative overflow-hidden shrink-0" />
+                    <RiLoaderFill  className="h-6 w-6 relative overflow-hidden shrink-0" />
                     <div className="relative inline-block min-w-[49px]">
                       Status
                     </div>
