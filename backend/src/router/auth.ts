@@ -3,6 +3,6 @@ import { login, register } from "../controller/auth";
 
 export const authRouter = Router();
 
-authRouter.get('/', register);
-authRouter.get('/', login);
+authRouter.get('/register', register);
+authRouter.get('/login', login);
 

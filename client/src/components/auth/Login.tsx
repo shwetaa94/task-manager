@@ -13,7 +13,7 @@ const Login: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("http://localhost:8000/api/v1/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -25,6 +25,7 @@ const Login: React.FC = () => {
 
       if (response.ok) {
         // Handle successful login (e.g., redirect to home)
+        localStorage.setItem("token", data.token);
         router.push("/");
       } else {
         setError(data.message || "Login failed");

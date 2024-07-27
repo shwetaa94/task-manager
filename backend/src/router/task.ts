@@ -3,14 +3,14 @@ import { createTask, deleteTask, getTasks, updateTask } from "../controller/task
 
 export const taskRouter = Router();
 
-taskRouter.post('/tasks', createTask);
+taskRouter.post('/', createTask);
 
 // Get all tasks
-taskRouter.get('/tasks', getTasks);
+taskRouter.get('/', getTasks);
 
 
 // Update a task by ID
-taskRouter.put('/tasks/:id', updateTask);
+taskRouter.put('/:id', updateTask);
 
 // Delete a task by ID
-taskRouter.delete('/tasks/:id', deleteTask);
+taskRouter.delete('/:id', deleteTask);

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import { CiCalendarDate } from "react-icons/ci";
@@ -16,17 +17,38 @@ const CreateTask: React.FC = () => {
   const [status, setStatus] = useState("Not selected");
   const [priority, setPriority] = useState("Not selected");
   const [deadline, setDeadline] = useState("");
+  const [error, setError] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
+   const handleSubmit = async (e: React.FormEvent) => {
+    const router = useRouter();
     e.preventDefault();
-    // Handle task submission here
-    console.log({
-      title,
-      description,
-      status,
-      priority,
-      deadline,
-    });
+
+    try {
+      const response = await fetch("http://localhost:8000/api/v1/task", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          status,
+          priority,
+          deadline,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Handle successful login (e.g., redirect to home)
+        router.push("/");
+      } else {
+        setError(data.message || "task creation failed");
+      }
+    } catch (error) {
+      setError("An unexpected error occurred while creating task");
+    }
   };
 
   return (

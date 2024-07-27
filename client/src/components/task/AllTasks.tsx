@@ -1,3 +1,4 @@
+"use client"
 import type { NextPage } from "next";
 import TaskHeader from "./Header";
 import Card from "./Card";
@@ -9,8 +10,52 @@ import { MdOutlineSort } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 import { IoIosSearch } from "react-icons/io";
 import { GoQuestion } from "react-icons/go";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const MainPage = () => {
+  const router = useRouter();
+  const [data, setData] = useState(null);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        router.push("/login");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:8000/api/v1/task", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          setData(result.data);
+        } else {
+          setError(result.message || "Failed to fetch data");
+        }
+      } catch (error) {
+        setError("An unexpected error occurred");
+      }
+    };
+
+    fetchData();
+  }, [router]);
+
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
+
+
   return (
     <div className="w-full h-screen pl-4 flex flex-col bg-whitesmoke-100 items-start justify-start gap-[16px] leading-[normal] tracking-[normal]">
       <header className="w-full h-auto self-stretch flex flex-col items-end justify-start gap-[16px]  text-left text-[48px] text-gray-500 font-barlow">
