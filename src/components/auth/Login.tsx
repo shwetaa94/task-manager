@@ -7,7 +7,7 @@ const Login: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // For displaying errors
+  const [error, setError] = useState(""); 
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,7 +79,7 @@ const Login: React.FC = () => {
       </div>
       <div className="flex flex-row items-start justify-center gap-1 text-xl text-dimgray font-inter mq675:flex-wrap">
         <div className="relative mq450:text-base">
-          Don't have an account? Create a
+          Don&apos;t have an account? Create a
         </div>
         <div
           className="h-6 relative inline-block min-w-[127px] cursor-pointer text-darkslateblue mq450:text-base"
