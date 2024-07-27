@@ -12,7 +12,7 @@ import { GoQuestion } from "react-icons/go";
 
 const MainPage = () => {
   return (
-    <div className="w-full h-screen mx-4 flex flex-col items-start justify-start gap-[16px] leading-[normal] tracking-[normal]">
+    <div className="w-full h-screen mx-4 flex flex-col bg-whitesmoke-100 items-start justify-start gap-[16px] leading-[normal] tracking-[normal]">
       <header className="w-full h-auto self-stretch flex flex-col items-end justify-start gap-[16px]  text-left text-[48px] text-gray-500 font-barlow">
         <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">
           <a className="[text-decoration:none] relative font-semibold text-[inherit] whitespace-nowrap">
@@ -82,8 +82,8 @@ const MainPage = () => {
         </div>
       </header>
       {/* all taszks are here */}
-      <section className="w-full h-auto self-stretch rounded-lg bg-white flex flex-row flex-wrap items-start justify-center py-4  px-4 gap-[12px] text-left text-xl text-dimgray-200 font-inter">
-        <div className="w-full h-auto self-stretch flex flex-row items-start justify-between ">
+      <section className="w-full  h-auto self-stretch rounded-lg flex flex-row flex-wrap items-start justify-center py-4  px-4 gap-[12px] text-left text-xl text-dimgray-200 font-inter">
+        <div className="w-full overflow-x-auto bg-white p-4 h-auto self-stretch flex flex-row items-start justify-between ">
           {/* todo */}
           <div className="flex-1 flex flex-col items-start justify-start gap-[14px] min-w-[194px] max-w-[257px]">
             <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">

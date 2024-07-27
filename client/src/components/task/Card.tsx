@@ -23,7 +23,7 @@ const Card: NextPage<CardType> = ({
   hrAgo,
 }) => {
   return (
-    <div className="flex-1 flex flex-col items-start justify-start gap-[16px] min-w-[193px] max-w-[257px] text-left text-xl text-dimgray-200 font-inter">
+    <div className="flex flex-col items-start justify-start gap-[16px] min-w-[193px] max-w-[257px] text-left text-xl text-dimgray-200 font-inter">
       <div className="self-stretch rounded-lg bg-whitesmoke-100 overflow-hidden flex flex-col items-start justify-start p-3 gap-[16px] text-base text-dimgray-100 border-[1px] border-solid border-gainsboro-200">
         <div className="self-stretch flex flex-col items-start justify-start gap-[13px]">
           <div className="self-stretch flex flex-col items-start justify-start">
@@ -35,7 +35,15 @@ const Card: NextPage<CardType> = ({
             </div>
           </div>
           <div className="rounded-lg bg-salmon flex flex-row items-center justify-center py-1.5 px-2 text-xs text-white">
-            <div className="relative inline-block min-w-[39px]">{status}</div>
+            {status === "in progress" ? (
+              <div className="relative inline-block min-w-[39px] p-2 rounded-lg bg-orange-500 text-white">
+                {status}
+              </div>
+            ) : (
+              <div className="relative inline-block min-w-[39px] p-2 rounded-lg bg-red-600 text-white">
+                {status}
+              </div>
+            )}
           </div>
           <div className="flex flex-row items-center justify-start gap-[8px] text-sm">
             <LuClock3 className="h-6 w-6 relative overflow-hidden shrink-0" />
@@ -50,7 +58,6 @@ const Card: NextPage<CardType> = ({
           </div>
         </div>
       </div>
-     
     </div>
   );
 };
