@@ -217,7 +217,7 @@ const MainPage = () => {
           <div className="flex-1 flex flex-col items-start justify-start gap-[16px] min-w-[194px] max-w-[257px]">
             <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">
               <div className="w-[126px] relative inline-block mq450:text-base">
-                Under Review
+                Finished
               </div>
               <MdOutlineSort className="h-6 w-6 relative  min-h-[24px]" />
             </div>
