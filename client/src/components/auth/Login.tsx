@@ -6,6 +6,10 @@ import { BACKEND_URL } from "../variable";
 
 const Login: React.FC = () => {
   const router = useRouter();
+  const token = localStorage.getItem("token");
+  if (token) {
+    router.push("/");
+  }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); 

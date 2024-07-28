@@ -74,7 +74,7 @@ const Sidebar = ({ email}:{email:string}) => {
                 </div>
               </div>
             </div>
-            <button className="cursor-pointer py-3 px-[31px] bg-[transparent] shadow-[0px_12px_16px_rgba(186,_186,_186,_0.2)_inset,_0px_1px_8px_rgba(0,_0,_0,_0.25)] rounded-lg [background:linear-gradient(180deg,_#4c38c2,_#2f2188)] flex flex-row items-center justify-center gap-[8px] whitespace-nowrap border-[1px] border-solid border-blueviolet">
+            <button className="cursor-pointer py-3 px-[31px] bg-[transparent] shadow-[0px_12px_16px_rgba(186,186,_186,_0.2)_inset,_0px_1px_8px_rgba(0,_0,_0,_0.25)] rounded-lg [background:linear-gradient(180deg,#4c38c2,_#2f2188)] flex flex-row items-center justify-center gap-[8px] whitespace-nowrap border-[1px] border-solid border-blueviolet">
               <div className="relative text-xl font-medium font-inter text-white text-left">
                 Create new task
               </div>

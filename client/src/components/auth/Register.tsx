@@ -6,6 +6,10 @@ import { BACKEND_URL } from "../variable";
 
 const Register = () => {
   const router = useRouter();
+  const token = localStorage.getItem("token");
+  if (token) {
+    router.push("/");
+  }
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
