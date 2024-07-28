@@ -21,6 +21,7 @@ interface Task {
   status: string;
   priority: string;
   date: string;
+  onDelete: (id: string) => void;
 }
  enum TaskStatus {
   Todo = "To do",
@@ -71,6 +72,9 @@ const MainPage = ({name}:{name:string}) => {
   if (error) {
     return <div className="error">{error}</div>;
   }
+  const handleTaskDeleted = (id: string) => {
+    setData(prevData => prevData.filter((task:Task) => task._id !== id));
+  };
   const renderTasks = (status: string) => {
     return data
       .filter((task:Task) => task.status === status)
@@ -83,10 +87,11 @@ const MainPage = ({name}:{name:string}) => {
           description={task.description}
           priority={task.priority}
           date={task.date}
+          onDelete={() => handleTaskDeleted(task._id )}
         />
       ));
   };
-
+  
   return (
     <div className="h-screen pl-4 flex flex-col bg-whitesmoke-100 items-start justify-start gap-[16px] leading-[normal] tracking-[normal]">
       <header className="w-full h-auto self-stretch flex flex-col items-end justify-start gap-[16px]  text-left text-[48px] text-gray-500 font-barlow">
