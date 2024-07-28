@@ -10,10 +10,11 @@ import { MdOutlineSort } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 import { IoIosSearch } from "react-icons/io";
 import { GoQuestion } from "react-icons/go";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useReducer, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const MainPage = () => {
+  const router = useRouter();
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
 
@@ -111,7 +112,9 @@ const MainPage = () => {
                 <IoShareSocialOutline className="h-6 w-6 relative " />
               </div>
             </div>
-            <button className="cursor-pointer py-1.5 px-[7px] bg-[transparent] shadow-[0px_12px_16px_rgba(186,_186,_186,_0.2)_inset,_0px_1px_8px_rgba(0,_0,_0,_0.25)] rounded-lg [background:linear-gradient(180deg,_#4c38c2,_#2f2188)] flex flex-row items-center justify-center gap-[8px] whitespace-nowrap border-[1px] border-solid border-blueviolet hover:bg-mediumslateblue-200 hover:box-border hover:border-[1px] hover:border-solid hover:border-mediumslateblue-100">
+            <button
+            onClick={()=>{router.push('/create')}}
+             className="cursor-pointer py-1.5 px-[7px] bg-[transparent] shadow-[0px_12px_16px_rgba(186,_186,_186,_0.2)_inset,_0px_1px_8px_rgba(0,_0,_0,_0.25)] rounded-lg [background:linear-gradient(180deg,_#4c38c2,_#2f2188)] flex flex-row items-center justify-center gap-[8px] whitespace-nowrap border-[1px] border-solid border-blueviolet hover:bg-mediumslateblue-200 hover:box-border hover:border-[1px] hover:border-solid hover:border-mediumslateblue-100">
               <div className="relative text-base font-medium font-inter text-white text-left inline-block min-w-[88px]">
                 Create new
               </div>
@@ -120,7 +123,7 @@ const MainPage = () => {
           </div>
         </div>
       </header>
-      {/* all taszks are here */}
+      {/* all tasks are here */}
       <section className="w-full  h-auto self-stretch rounded-lg flex flex-row flex-wrap items-start justify-center py-4  px-4 gap-[12px] text-left text-xl text-dimgray-200 font-inter">
         <div className="w-full bg-white p-4 h-auto self-stretch flex flex-row items-start justify-between ">
           {/* todo */}
@@ -140,7 +143,9 @@ const MainPage = () => {
               date="2024-08-15"
               hrAgo="1 hr ago"
             />
-            <button className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
+            <button 
+              onClick={()=>{router.push('/create')}}
+              className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
               </div>
@@ -172,7 +177,9 @@ const MainPage = () => {
               date="2024-08-05"
               hrAgo="3 hr ago"
             />
-            <button className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
+            <button
+            onClick={()=>{router.push('/create')}}
+             className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
               </div>
@@ -196,7 +203,9 @@ const MainPage = () => {
               date="2024-08-20"
               hrAgo="2 days  ago"
             />
-            <button className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
+            <button 
+             onClick={()=>{router.push('/create')}}
+             className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
               </div>
@@ -220,7 +229,9 @@ const MainPage = () => {
               date="2024-07-30"
               hrAgo="4 days ago"
             />
-            <button className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
+            <button
+             onClick={()=>{router.push('/create')}}
+              className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
               </div>

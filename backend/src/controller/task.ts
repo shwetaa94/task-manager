@@ -1,26 +1,35 @@
 import { Request, Response } from 'express';
 import Task from '../models/task';
+import User from '../models/user';
 
 // Create a new task
-export const createTask = async (req: Request, res: Response) => {
+export const createTask = async (req: any, res: Response) => {
   const { title, description, status, priority, deadline } = req.body;
 
   try {
+    // Find the user by email
+    const user = await User.findOne({ email: req.email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
     const newTask = new Task({
       title,
       description,
       status,
       priority,
       deadline,
+      user: user._id, // Associate the task with the user's ID
     });
 
     await newTask.save();
 
     res.status(201).json({
-      message: 'Task created successfully',
+      message: "Task created successfully",
       task: newTask,
     });
-  } catch (error:any) {
+  } catch (error: any) {
     console.error(error);
     res.status(500).json({
       message: 'Error creating task',

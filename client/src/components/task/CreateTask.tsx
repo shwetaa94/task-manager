@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import { CiCalendarDate } from "react-icons/ci";
@@ -11,23 +11,24 @@ import { RiLoaderFill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 
 const CreateTask: React.FC = () => {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("Not selected");
+  const [status, setStatus] = useState("To do");
   const [priority, setPriority] = useState("Not selected");
   const [deadline, setDeadline] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    const router = useRouter();
+    const token = localStorage.getItem("token");
     e.preventDefault();
-    console.log(title, description, status, priority, deadline);
 
     try {
       const response = await fetch("http://localhost:8000/api/v1/task", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
           title,
@@ -51,11 +52,6 @@ const CreateTask: React.FC = () => {
     }
   };
 
-  // const handleClick = async () => {
-  //   const router = useRouter();
-  //   router.push("/");
-  //   return;
-  // };
 
   return (
     <div className="w-screen flex flex-col items-start justify-start mx-6 pb-[513px] box-border gap-[32px] leading-[normal] tracking-[normal] text-left text-base text-silver-200 font-inter mq450:gap-[16px] overflow-hidden">
@@ -63,7 +59,7 @@ const CreateTask: React.FC = () => {
         <header className="w-full mt-6 flex flex-row items-center justify-between text-left text-base text-gray font-inter">
           <div className="flex flex-row items-center justify-start gap-[16px] w-full">
             <div className="flex gap-6 ">
-              <div>
+              <div onClick={()=>{ router.push("/");}}>
                 <RxCross2 className="h-6 w-6 relative min-h-[24px]" />
               </div>
               <BsArrowsAngleExpand className="h-5 w-5 relative min-h-[24px]" />
@@ -113,8 +109,9 @@ const CreateTask: React.FC = () => {
                     onChange={(e) => setStatus(e.target.value)}
                     required
                   >
-                    <option value="Not selected">Not selected</option>
+                    <option value="To do">To do</option>
                     <option value="In Progress">In Progress</option>
+                    <option value="Under Review">Under Review</option>
                     <option value="Completed">Completed</option>
                   </select>
                 </div>

@@ -1,8 +1,9 @@
 
 
 export enum TaskStatus {
-    NotSelected = "Not selected",
+    Todo = "To do",
     InProgress = "In Progress",
+    UnderReview = "Under Review",
     Completed = "Completed",
   }
   

@@ -12,9 +12,9 @@ const isLoggedIn = (req: any, res: Response, next: NextFunction) => {
 
   const token = authHeader.split(' ')[1];
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as { email: string }; // Type assertion
-
-    req.email = decoded.email; // TypeScript now recognizes this property
+    const decoded = jwt.verify(token, JWT_SECRET) as { email: string }; 
+    
+    req.email = decoded.email; 
 
     next();
   } catch (err) {
