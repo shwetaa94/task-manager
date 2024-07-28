@@ -13,9 +13,30 @@ import { GoQuestion } from "react-icons/go";
 import { useEffect, useReducer, useState } from "react";
 import { useRouter } from "next/navigation";
 
+interface Task {
+  _id: string;
+  title: string;
+  description: string;
+  status: string;
+  priority: string;
+  date: string;
+}
+ enum TaskStatus {
+  Todo = "To do",
+  InProgress = "In Progress",
+  UnderReview = "Under Review",
+  Finished = "Finished",
+}
+
+ enum TaskPriority {
+  NotSelected = "Not selected",
+  Low = "Low",
+  Medium = "Medium",
+  Urgent = "Urgent",
+}
 const MainPage = () => {
   const router = useRouter();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -45,15 +66,29 @@ const MainPage = () => {
     };
 
     fetchData();
-  },[]);
+ },[]);
 
   if (error) {
     return <div className="error">{error}</div>;
   }
-
+  const renderTasks = (status: string) => {
+    return data
+      .filter((task:Task) => task.status === status)
+      .map((task:Task) => (
+        <Card
+          key={task._id}
+          id={task._id}
+          status={task.status}
+          title={task.title}
+          description={task.description}
+          priority={task.priority}
+          date={task.date}
+        />
+      ));
+  };
 
   return (
-    <div className="w-full h-screen pl-4 flex flex-col bg-whitesmoke-100 items-start justify-start gap-[16px] leading-[normal] tracking-[normal]">
+    <div className="h-screen pl-4 flex flex-col bg-whitesmoke-100 items-start justify-start gap-[16px] leading-[normal] tracking-[normal]">
       <header className="w-full h-auto self-stretch flex flex-col items-end justify-start gap-[16px]  text-left text-[48px] text-gray-500 font-barlow">
         <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">
           <a className="[text-decoration:none] relative font-semibold text-[inherit] whitespace-nowrap">
@@ -135,17 +170,18 @@ const MainPage = () => {
               </div>
               <MdOutlineSort className="h-6 w-6 relative  min-h-[24px]" />
             </div>
+            {renderTasks(TaskStatus.Todo)}
 
-            <Card
+            {/* <Card
               toDo="To do"
               title="Implement User Authentication"
               description="Develop and integrate user authentication using email and password."
               status="Urgent"
               date="2024-08-15"
               hrAgo="1 hr ago"
-            />
+            /> */}
             <button 
-              onClick={()=>{router.push('/create')}}
+              onClick={()=>{router.push(`/create?toDo=${TaskStatus.Todo}`)}}
               className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
@@ -161,8 +197,8 @@ const MainPage = () => {
               </div>
               <MdOutlineSort className="h-6 w-6 relative  min-h-[24px]" />
             </div>
-
-            <Card
+            {renderTasks(TaskStatus.InProgress)}
+            {/* <Card
               toDo="in progress"
               title="Design Home Page UI"
               description="Develop and integrate user authentication using email and password."
@@ -177,9 +213,9 @@ const MainPage = () => {
               status="Low"
               date="2024-08-05"
               hrAgo="3 hr ago"
-            />
+            /> */}
             <button
-            onClick={()=>{router.push('/create')}}
+           onClick={()=>{router.push(`/create?toDo=${TaskStatus.InProgress}`)}}
              className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
@@ -187,7 +223,7 @@ const MainPage = () => {
               <FiPlus className="h-6 w-6 text-white relative " />
             </button>
           </div>
-          {/* uder review */}
+          {/* under review */}
           <div className="flex-1 flex flex-col items-start justify-start gap-[16px] min-w-[194px] max-w-[257px]">
             <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">
               <div className="w-[126px] relative inline-block mq450:text-base">
@@ -195,17 +231,18 @@ const MainPage = () => {
               </div>
               <MdOutlineSort className="h-6 w-6 relative  min-h-[24px]" />
             </div>
-
-            <Card
+            {renderTasks(TaskStatus.UnderReview)}
+            {/* <Card
               toDo="Under review"
               title="Integrate Cloud Storage"
               description="Enable cloud storage for note backup and synchronization."
               status="Urgent"
               date="2024-08-20"
               hrAgo="2 days  ago"
-            />
+            /> */}
             <button 
-             onClick={()=>{router.push('/create')}}
+           
+             onClick={()=>{router.push(`/create?toDo=${TaskStatus.UnderReview}`)}}
              className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
@@ -221,17 +258,17 @@ const MainPage = () => {
               </div>
               <MdOutlineSort className="h-6 w-6 relative  min-h-[24px]" />
             </div>
-
-            <Card
+            {renderTasks(TaskStatus.Finished)}
+            {/* <Card
               toDo="Finished"
               title="Test Cross-browser Compatibility"
               description="Ensure the app works seamlessly across different web browsers."
               status="Medium"
               date="2024-07-30"
               hrAgo="4 days ago"
-            />
+            /> */}
             <button
-             onClick={()=>{router.push('/create')}}
+             onClick={()=>{router.push(`/create?toDo=${TaskStatus.Finished}`)}}
               className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new

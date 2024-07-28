@@ -1,6 +1,6 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import { CiCalendarDate } from "react-icons/ci";
 import { GoPencil } from "react-icons/go";
@@ -12,6 +12,7 @@ import { RxCross2 } from "react-icons/rx";
 
 const CreateTask: React.FC = () => {
   const router = useRouter();
+  const [id, setId] = useState("")
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("To do");
@@ -24,8 +25,10 @@ const CreateTask: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/api/v1/task", {
-        method: "POST",
+      const method = id?"PUT":"POST"
+      const url = id?`http://localhost:8000/api/v1/task/${id}`:"http://localhost:8000/api/v1/task"
+      const response = await fetch(url, {
+        method ,
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
@@ -51,7 +54,17 @@ const CreateTask: React.FC = () => {
       setError("An unexpected error occurred while creating task");
     }
   };
-
+  useEffect(() => {
+    // Extract query parameters from the URL
+    const params = new URLSearchParams(window.location.search);
+    setId(params.get('id')||"")
+    setTitle(params.get('title')||"")
+    setDescription(params.get('description')||"")
+    setStatus(params.get('status')||"")
+    setPriority(params.get('priority')||"")
+    setDeadline(params.get('Deadline')||"")
+}, []);
+ 
 
   return (
     <div className="w-screen flex flex-col items-start justify-start mx-6 pb-[513px] box-border gap-[32px] leading-[normal] tracking-[normal] text-left text-base text-silver-200 font-inter mq450:gap-[16px] overflow-hidden">
@@ -112,7 +125,7 @@ const CreateTask: React.FC = () => {
                     <option value="To do">To do</option>
                     <option value="In Progress">In Progress</option>
                     <option value="Under Review">Under Review</option>
-                    <option value="Completed">Completed</option>
+                    <option value="Finished">Finished</option>
                   </select>
                 </div>
                 <div className="w-full flex flex-row items-center justify-between gap-[24px] flex-1">
@@ -174,7 +187,7 @@ const CreateTask: React.FC = () => {
                   type="submit"
                 >
                   <div className="relative text-xl font-inter text-white text-left inline-block min-w-[71px] whitespace-nowrap mq450:text-base">
-                    Create Task
+                    {id? "Update Task":"Create Task"}
                   </div>
                 </button>
               </div>

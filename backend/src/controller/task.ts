@@ -1,9 +1,14 @@
-import { Request, Response } from 'express';
-import Task from '../models/task';
-import User from '../models/user';
+import { Request, Response } from "express";
+import Task from "../models/task";
+import User from "../models/user";
 
+interface AuthReq extends Request {
+  email?: string;
+  id?: string;
+  name?: string;
+}
 // Create a new task
-export const createTask = async (req: any, res: Response) => {
+export const createTask = async (req: AuthReq, res: Response) => {
   const { title, description, status, priority, deadline } = req.body;
 
   try {
@@ -32,29 +37,28 @@ export const createTask = async (req: any, res: Response) => {
   } catch (error: any) {
     console.error(error);
     res.status(500).json({
-      message: 'Error creating task',
+      message: "Error creating task",
       error: error.message,
     });
   }
 };
 
 // Get all tasks
-export const getTasks = async (req: Request, res: Response) => {
+export const getTasks = async (req: AuthReq, res: Response) => {
   try {
-    const tasks = await Task.find();
+    const tasks = await Task.find({ user: req.id });
     res.status(200).json(tasks);
-  } catch (error:any) {
+  } catch (error: any) {
     console.error(error);
     res.status(500).json({
-      message: 'Error fetching tasks',
+      message: "Error fetching tasks",
       error: error.message,
     });
   }
 };
 
-
 // Update a task by ID
-export const updateTask = async (req: Request, res: Response) => {
+export const updateTask = async (req: AuthReq, res: Response) => {
   const { id } = req.params;
   const { title, description, status, priority, deadline } = req.body;
 
@@ -66,41 +70,41 @@ export const updateTask = async (req: Request, res: Response) => {
     );
 
     if (!updatedTask) {
-      return res.status(404).json({ message: 'Task not found' });
+      return res.status(404).json({ message: "Task not found" });
     }
 
     res.status(200).json({
-      message: 'Task updated successfully',
+      message: "Task updated successfully",
       task: updatedTask,
     });
-  } catch (error:any) {
+  } catch (error: any) {
     console.error(error);
     res.status(500).json({
-      message: 'Error updating task',
+      message: "Error updating task",
       error: error.message,
     });
   }
 };
 
 // Delete a task by ID
-export const deleteTask = async (req: Request, res: Response) => {
+export const deleteTask = async (req: AuthReq, res: Response) => {
   const { id } = req.params;
 
   try {
     const deletedTask = await Task.findByIdAndDelete(id);
 
     if (!deletedTask) {
-      return res.status(404).json({ message: 'Task not found' });
+      return res.status(404).json({ message: "Task not found" });
     }
 
     res.status(200).json({
-      message: 'Task deleted successfully',
+      message: "Task deleted successfully",
       task: deletedTask,
     });
-  } catch (error:any) {
+  } catch (error: any) {
     console.error(error);
     res.status(500).json({
-      message: 'Error deleting task',
+      message: "Error deleting task",
       error: error.message,
     });
   }

@@ -1,32 +1,45 @@
 import type { NextPage } from "next";
+import { useRouter } from "next/navigation";
 import { FiPlus } from "react-icons/fi";
+import { HiOutlinePencil } from "react-icons/hi";
 import { LuClock3 } from "react-icons/lu";
-import { MdOutlineSort } from "react-icons/md";
+import { MdDelete, MdOutlineSort } from "react-icons/md";
 
 export type CardType = {
-  className?: string;
-  toDo?: string;
+  id?: string;
+  status?: string;
   title?: string;
   description?: string;
-  status?: string;
+  priority?: string;
   date?: string;
   hrAgo?: string;
 };
 
 const Card: NextPage<CardType> = ({
-  className = "",
-  toDo,
+  id,
+  status,
   title,
   description,
-  status,
+  priority,
   date,
   hrAgo,
 }) => {
+  const router = useRouter();
   return (
     <div className="flex flex-col items-start justify-start gap-[16px] min-w-[193px] max-w-[257px] text-left text-xl text-dimgray-200 font-inter">
-      <div className="self-stretch rounded-lg bg-whitesmoke-100 overflow-hidden flex flex-col items-start justify-start p-3 gap-[16px] text-base text-dimgray-100 border-[1px] border-solid border-gainsboro-200">
+      <div className="self-stretch rounded-lg bg-whitesmoke-100 flex flex-col items-start justify-start p-3 gap-[16px] text-base text-dimgray-100 border-[1px] border-solid border-gainsboro-200">
         <div className="self-stretch flex flex-col items-start justify-start gap-[13px]">
           <div className="self-stretch flex flex-col items-start justify-start">
+            <div className="w-full flex justify-end gap-4">
+              <span 
+                onClick={()=>{router.push(`/create?id=${id}&status=${status}&title=${title}&description=${description}&priority=${priority}&date=${date}`)}}
+                className="cursor-pointer">
+                <HiOutlinePencil className="text-xl" />
+              </span>
+              <span className="cursor-pointer">
+                <MdDelete className="text-xl" />
+              </span>
+            </div>
             <div className="self-stretch flex flex-col items-start justify-start gap-[4px]">
               <div className="self-stretch relative font-medium">{title}</div>
               <div className="self-stretch relative text-sm text-gray-300">
