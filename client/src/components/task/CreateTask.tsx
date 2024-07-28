@@ -1,5 +1,4 @@
 "use client";
-
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { BsArrowsAngleExpand } from "react-icons/bs";
@@ -52,13 +51,21 @@ const CreateTask: React.FC = () => {
     }
   };
 
+  // const handleClick = async () => {
+  //   const router = useRouter();
+  //   router.push("/");
+  //   return;
+  // };
+
   return (
     <div className="w-screen flex flex-col items-start justify-start mx-6 pb-[513px] box-border gap-[32px] leading-[normal] tracking-[normal] text-left text-base text-silver-200 font-inter mq450:gap-[16px] overflow-hidden">
       <section className="w-[920px] self-stretch flex flex-col items-start justify-start gap-[27px] text-left text-[48px] text-lightgray font-barlow">
-        <header className="w-full flex flex-row items-center justify-between text-left text-base text-gray font-inter">
+        <header className="w-full mt-6 flex flex-row items-center justify-between text-left text-base text-gray font-inter">
           <div className="flex flex-row items-center justify-start gap-[16px] w-full">
-            <div className="flex gap-6">
-              <RxCross2 className="h-6 w-6 relative min-h-[24px]" />
+            <div className="flex gap-6 ">
+              <div>
+                <RxCross2 className="h-6 w-6 relative min-h-[24px]" />
+              </div>
               <BsArrowsAngleExpand className="h-5 w-5 relative min-h-[24px]" />
             </div>
           </div>
@@ -83,7 +90,7 @@ const CreateTask: React.FC = () => {
         >
           <div className="self-stretch flex flex-col items-start justify-start gap-[32px] mq625:gap-[16px]">
             <input
-              className={`w-full border-none outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl ${
+              className={`w-full border-none outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-10xl ${
                 title ? "text-black" : "text-darkgray"
               } mt-2`}
               placeholder="Task Title"
@@ -94,7 +101,10 @@ const CreateTask: React.FC = () => {
             <div className="w-full flex flex-col items-center justify-between gap-[20px] text-base text-dimgray font-inter">
               <div className="w-full flex flex-col items-center justify-between gap-[24px] flex-1">
                 <div className="w-full flex flex-row items-center justify-between gap-[24px] flex-1">
-                  <RiLoaderFill className="h-6 w-6 relative" />
+                  <div className="flex gap-10">
+                    <RiLoaderFill className="h-6 w-6 relative" />
+                    <span className="text-xl"> Status </span>
+                  </div>
                   <select
                     className={`w-60 border-none outline-none bg-whitesmoke h-14 rounded-lg font-inter text-xl ${
                       status !== "Not selected" ? "text-black" : "text-darkgray"
@@ -109,7 +119,10 @@ const CreateTask: React.FC = () => {
                   </select>
                 </div>
                 <div className="w-full flex flex-row items-center justify-between gap-[24px] flex-1">
-                  <MdPriorityHigh className="h-6 w-6 relative shrink-0" />
+                  <div className="flex gap-10">
+                    <MdPriorityHigh className="h-6 w-6 relative" />
+                    <span className="text-xl"> Priority </span>
+                  </div>
                   <select
                     className={`w-60 border-none outline-none bg-whitesmoke h-14 rounded-lg font-inter text-xl ${
                       priority !== "Not selected"
@@ -126,7 +139,10 @@ const CreateTask: React.FC = () => {
                   </select>
                 </div>
                 <div className="w-full flex flex-row items-center justify-between gap-[24px] flex-1">
-                  <CiCalendarDate className="h-6 w-6 relative" />
+                  <div className="flex gap-10">
+                    <CiCalendarDate className="h-6 w-6 relative" />
+                    <span className="text-xl"> Deadline </span>
+                  </div>
                   <input
                     className={`w-60 border-none outline-none bg-whitesmoke h-14 rounded-lg font-inter text-xl text-darkgray ${
                       deadline ? "text-black" : "text-darkgray"
@@ -136,10 +152,13 @@ const CreateTask: React.FC = () => {
                     onChange={(e) => setDeadline(e.target.value)}
                   />
                 </div>
-                <div className="w-full flex flex-row items-center justify-between gap-[24px] flex-1">
-                  <GoPencil className="h-6 w-6 relative" />
+                <div className="w-full  flex flex-row items-center justify-between gap-[24px] flex-1">
+                  <div className="flex gap-10 ">
+                    <GoPencil className="h-6 w-6 relative" />
+                    <span className="text-xl"> Description </span>
+                  </div>
                   <textarea
-                    className={`w-60 min-h-20 border-none outline-none bg-whitesmoke rounded-lg font-inter text-xl ${
+                    className={`w-60  min-h-20 border-none outline-none bg-whitesmoke rounded-lg font-inter text-xl ${
                       description ? "text-black" : "text-darkgray"
                     }`}
                     placeholder="Task Description"
@@ -147,12 +166,12 @@ const CreateTask: React.FC = () => {
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
-                <button className="w-full cursor-pointer [border:none] p-0 bg-transparent flex flex-row items-center justify-between gap-[23px]">
+                {/* <button className="w-full cursor-pointer [border:none] p-0 bg-transparent flex flex-row items-center justify-between gap-[23px]">
                   <IoMdAdd className="h-6 w-6 relative" />
-                  <div className="w-60 border-none outline-none bg-whitesmoke rounded-lg font-inter text-xl text-darkgray">
-                    Add custom property
-                  </div>
-                </button>
+                  <input className={`w-60 border-none outline-none bg-whitesmoke h-14 rounded-lg font-inter text-xl text-black `}
+                    value= "Add custom property"
+                  />
+                </button> */}
                 <button
                   className="cursor-pointer py-3 px-5 bg-transparent self-stretch shadow-inset flex items-center justify-center rounded-lg bg-gradient-to-b from-purple-500 to-blue-900 border border-blueviolet hover:bg-gainsboro hover:border-mediumslateblue"
                   type="submit"
@@ -166,9 +185,9 @@ const CreateTask: React.FC = () => {
           </div>
         </form>
       </section>
-      <hr className="w-full text-darkgray" />
       <div className="self-stretch relative bg-gainsboro" />
-      <div className="self-stretch relative">
+      <hr className="w-full text-darkgray" />
+      <div className="text-xl self-stretch relative">
         Start writing, or drag your own files here.
       </div>
     </div>
