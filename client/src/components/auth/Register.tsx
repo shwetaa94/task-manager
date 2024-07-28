@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { BACKEND_URL } from "../variable";
 
 const Register = () => {
   const router = useRouter();
@@ -14,18 +15,12 @@ const Register = () => {
     e.preventDefault();
     try {
       console.log(name, email, password);
-      const response = await fetch(
-        "https://task-manager-backend-fmig.onrender.com/api/v1/auth/register",
-        {
+      const response = await fetch(`${BACKEND_URL}/api/v1/auth/register`,{
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            password: password,
-          }),
+          body: JSON.stringify({ name: name, email: email, password: password }),
         }
       );
 
@@ -93,6 +88,7 @@ const Register = () => {
           </button>
         </form>
       </div>
+      {error && <p className="text-red-500 text-xl">{error}</p>}
       <div className="flex flex-row items-start justify-center gap-1 text-xl text-dimgray font-inter mq450:flex-wrap">
         <div
           className="relative mq450:text-base cursor-pointer"

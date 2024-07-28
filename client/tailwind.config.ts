@@ -43,14 +43,7 @@ const config = {
         barlow: "Barlow",
       },
     },
-    fontSize: {
-      base: "16px",
-      inherit: "inherit",
-      xl: "20px",
-      "29xl": "48px",
-      "10xl": "29px",
-      "19xl": "38px",
-    },
+   
     screens: {
       mq625: {
         raw: "screen and (max-width: 625px)",

@@ -12,6 +12,7 @@ import { IoIosSearch } from "react-icons/io";
 import { GoQuestion } from "react-icons/go";
 import { useEffect, useReducer, useState } from "react";
 import { useRouter } from "next/navigation";
+import { BACKEND_URL } from "../variable";
 
 interface Task {
   _id: string;
@@ -34,7 +35,7 @@ interface Task {
   Medium = "Medium",
   Urgent = "Urgent",
 }
-const MainPage = () => {
+const MainPage = ({name}:{name:string}) => {
   const router = useRouter();
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
@@ -44,7 +45,7 @@ const MainPage = () => {
       const token = localStorage.getItem("token");
 
       try {
-        const response = await fetch("https://task-manager-backend-fmig.onrender.com/api/v1/task", {
+        const response = await fetch(`${BACKEND_URL}/api/v1/task`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -55,7 +56,6 @@ const MainPage = () => {
         const result = await response.json();
 
         if (response.ok) {
-          console.log(result)
           setData(result);
         } else {
           setError(result.message || "Failed to fetch data");
@@ -91,9 +91,9 @@ const MainPage = () => {
     <div className="h-screen pl-4 flex flex-col bg-whitesmoke-100 items-start justify-start gap-[16px] leading-[normal] tracking-[normal]">
       <header className="w-full h-auto self-stretch flex flex-col items-end justify-start gap-[16px]  text-left text-[48px] text-gray-500 font-barlow">
         <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">
-          <a className="[text-decoration:none] relative font-semibold text-[inherit] whitespace-nowrap">
-            Good morning, Joe!
-          </a>
+          <div className="[text-decoration:none] relative font-semibold text-[inherit] whitespace-nowrap">
+           { `Good morning, ${name}`}
+          </div>
           <div className="flex flex-row items-center justify-start gap-[8px] text-base font-inter">
             <a className="[text-decoration:none] relative text-[inherit] inline-block min-w-[125px] whitespace-nowrap">{`Help & feedback`}</a>
             <GoQuestion className="h-6 w-6 relative " />

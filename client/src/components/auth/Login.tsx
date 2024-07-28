@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { BACKEND_URL } from "../variable";
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -13,12 +14,15 @@ const Login: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://task-manager-backend-fmig.onrender.com/api/v1/auth/login", {
+      const response = await fetch(`${BACKEND_URL}/api/v1/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email:email, password:password }),
+        body: JSON.stringify({ 
+          email,
+          password
+         }),
       });
 
       const data = await response.json();
@@ -31,7 +35,7 @@ const Login: React.FC = () => {
         setError(data.message || "Login failed");
       }
     } catch (error) {
-      setError("An unexpected error occurred");
+      setError("An unexpected error occurred in login");
     }
   };
 
@@ -76,7 +80,7 @@ const Login: React.FC = () => {
             </div>
           </button>
         </form>
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-red-500 text-xl">{error}</p>}
       </div>
       <div className="flex flex-row items-start justify-center gap-1 text-xl text-dimgray font-inter mq675:flex-wrap">
         <div className="relative mq450:text-base">

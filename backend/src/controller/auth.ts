@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
 import User from "../models/user"; // Adjust the import path as per your project structure
+import errorMap from "zod/lib/locales/en";
+import { AuthReq } from "./task";
 
 const JWT_SECRET = "mysecretcode"; // Use environment variable for the secret
 
@@ -18,13 +20,12 @@ const loginSchema = z.object({
   password: z.string().nonempty("Password is required"),
 });
 
-export const register = async (req: Request, res: Response) => {
+export const register = async (req: AuthReq, res: Response) => {
   // Validate input using zod
   const parseResult = registerSchema.safeParse(req.body);
   if (!parseResult.success) {
-    return res.status(400).json({ errors: parseResult.error.errors });
+    return res.status(400).json({ errors: parseResult.error.errors, message:"fill corrrect input" });
   }
-
   try {
     const { name, email, password } = parseResult.data;
 
@@ -61,7 +62,7 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req: AuthReq, res: Response) => {
   // Validate input using zod
   const parseResult = loginSchema.safeParse(req.body);
 
@@ -101,3 +102,16 @@ export const login = async (req: Request, res: Response) => {
       .json({ message: "Internal server error while logging in" });
   }
 };
+
+export const getUser = async(req:AuthReq, res:Response)=>{
+  try {
+
+    const userId = req.id;
+    const user = await User.findById(userId);
+    return res.status(200).json({user,message:"User created succesfully"})
+    
+  } catch (error:any) {
+    res.status(500).json({error:error.message});
+    
+  }
+}

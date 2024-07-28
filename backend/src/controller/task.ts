@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Task from "../models/task";
 import User from "../models/user";
 
-interface AuthReq extends Request {
+export interface AuthReq extends Request {
   email?: string;
   id?: string;
   name?: string;
@@ -10,7 +10,7 @@ interface AuthReq extends Request {
 // Create a new task
 export const createTask = async (req: AuthReq, res: Response) => {
   const { title, description, status, priority, deadline } = req.body;
-
+  console.log(title, description, status, priority, deadline)
   try {
     // Find the user by email
     const user = await User.findOne({ email: req.email });

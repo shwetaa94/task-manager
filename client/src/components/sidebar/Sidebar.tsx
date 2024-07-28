@@ -1,4 +1,6 @@
+"use client"
 import type { NextPage } from "next";
+import { useRouter } from "next/navigation";
 import { AiOutlineTeam } from "react-icons/ai";
 import { FaPlusCircle, FaRegUser } from "react-icons/fa";
 import { HiOutlineHome } from "react-icons/hi";
@@ -10,7 +12,12 @@ import { RiLoaderFill } from "react-icons/ri";
 import { TbClipboardData } from "react-icons/tb";
 import { VscGraphLine } from "react-icons/vsc";
 
-const Sidebar = () => {
+const Sidebar = ({ email}:{email:string}) => {
+  const router = useRouter();
+  const logout = ()=>{
+    localStorage.removeItem("token");
+    router.push("/login");
+  }
   return (
     <div className="w-full bg-white  h-screen  flex flex-col items-start justify-between pt-6 px-[15px] pb-8  leading-[normal] tracking-[normal] text-left text-xl text-dimgray  border-r-4 font-inter">
       <section className="self-stretch flex flex-col items-start justify-start gap-[16px] text-left text-xl pr-4 text-gray-200 font-inter">
@@ -18,9 +25,9 @@ const Sidebar = () => {
           <div className="self-stretch flex flex-row items-center justify-start">
             <div className="flex flex-row items-center justify-start py-0 pr-5 pl-0 gap-[8px]">
               <FaRegUser className="h-[21px] w-[21px] relative rounded-lg overflow-hidden object-cover" />
-              <a className="[text-decoration:none] relative font-medium inline-block min-w-[118px]">
-                Joe Gardner
-              </a>
+              <div className="relative text-base  font-medium inline-block min-w-[118px]">
+                {`${email}`}
+              </div>
             </div>
           </div>
           <div className="self-stretch flex flex-row items-center justify-between gap-[20px] text-[16px] text-gray-100">
@@ -30,12 +37,12 @@ const Sidebar = () => {
               <PiFastForward className="h-6 w-6 relative overflow-hidden min-h-[24px]" />
             </div>
             <div
-              className="rounded bg-whitesmoke-100 overflow-hidden flex flex-row items-center justify-start py-[10.5px] px-2 cursor-pointer"
-              //   onClick= {()=>{}}
+              className="rounded bg-whitesmoke-100 hover:bg-red-500 hover:text-white overflow-hidden flex flex-row items-center justify-start p-2 cursor-pointer"
+              onClick={logout}
             >
-              <a className="[text-decoration:none] relative inline-block min-w-[53px]">
+              <div className="[text-decoration:none] relative inline-block min-w-[53px]">
                 Logout
-              </a>
+              </div>
             </div>
           </div>
         </div>

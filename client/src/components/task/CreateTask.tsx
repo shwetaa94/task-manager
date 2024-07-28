@@ -9,6 +9,7 @@ import { IoShareSocialOutline } from "react-icons/io5";
 import { MdPriorityHigh } from "react-icons/md";
 import { RiLoaderFill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
+import { BACKEND_URL } from "../variable";
 
 const CreateTask: React.FC = () => {
   const router = useRouter();
@@ -25,8 +26,15 @@ const CreateTask: React.FC = () => {
     e.preventDefault();
 
     try {
+      console.log({
+        title,
+        description,
+        status,
+        priority,
+        deadline,
+      })
       const method = id?"PUT":"POST"
-      const url = id?`https://task-manager-backend-fmig.onrender.com/api/v1/task/${id}`:"https://task-manager-backend-fmig.onrender.com/api/v1/task"
+      const url = id?`${BACKEND_URL}/api/v1/task/${id}`:`${BACKEND_URL}/api/v1/task`
       const response = await fetch(url, {
         method ,
         headers: {
@@ -60,8 +68,8 @@ const CreateTask: React.FC = () => {
     setId(params.get('id')||"")
     setTitle(params.get('title')||"")
     setDescription(params.get('description')||"")
-    setStatus(params.get('status')||"")
-    setPriority(params.get('priority')||"")
+    setStatus(params.get('status')||"To do")
+    setPriority(params.get('priority')||"Not selected")
     setDeadline(params.get('Deadline')||"")
 }, []);
  
