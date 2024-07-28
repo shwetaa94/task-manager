@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
 import User from "../models/user"; // Adjust the import path as per your project structure
+import { AuthReq } from "./task";
 
 const JWT_SECRET = "mysecretcode"; // Use environment variable for the secret
 
@@ -27,9 +28,10 @@ export const register = async (req: Request, res: Response) => {
 
   try {
     const { name, email, password } = parseResult.data;
-
+    console.log(email);
     // Check if the user already exists
     const existingUser = await User.findOne({ email });
+    console.log(existingUser);
     if (existingUser) {
       return res.status(409).json({ message: "Email already exists" });
     }
@@ -37,19 +39,21 @@ export const register = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create the user
-    const newUser = new User({
+    const newUser = await User.create({
       name,
       email,
       password: hashedPassword,
     });
-    await newUser.save();
+    console.log(newUser);
 
+    console.log("saved");
     // Generate JWT token
     const token = jwt.sign(
       { email, name, id: newUser._id },
       JWT_SECRET,
-      { expiresIn: "1h" } // Token expiration time
+      { expiresIn: "24h" } // Token expiration time
     );
+    console.log("token", token);
     return res
       .status(201)
       .json({ token, message: "User created successfully" });
@@ -99,5 +103,17 @@ export const login = async (req: Request, res: Response) => {
     return res
       .status(500)
       .json({ message: "Internal server error while logging in" });
+  }
+};
+
+export const getUser = async (req: AuthReq, res: Response) => {
+  try {
+    const userId = req.id;
+
+    const user = await User.findById(userId);
+
+    return res.status(200).json({ user, message: "User get successfully" });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
   }
 };
