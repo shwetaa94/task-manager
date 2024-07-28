@@ -34,7 +34,8 @@ const MainPage = () => {
         const result = await response.json();
 
         if (response.ok) {
-          setData(result.data);
+          console.log(result)
+          setData(result);
         } else {
           setError(result.message || "Failed to fetch data");
         }
@@ -44,7 +45,7 @@ const MainPage = () => {
     };
 
     fetchData();
-  });
+  },[]);
 
   if (error) {
     return <div className="error">{error}</div>;
