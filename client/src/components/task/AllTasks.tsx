@@ -181,7 +181,7 @@ const MainPage = ({name}:{name:string}) => {
               hrAgo="1 hr ago"
             /> */}
             <button 
-              onClick={()=>{router.push(`/create?toDo=${TaskStatus.Todo}`)}}
+              onClick={()=>{router.push(`/create?status=${TaskStatus.Todo}`)}}
               className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
@@ -215,7 +215,7 @@ const MainPage = ({name}:{name:string}) => {
               hrAgo="3 hr ago"
             /> */}
             <button
-           onClick={()=>{router.push(`/create?toDo=${TaskStatus.InProgress}`)}}
+           onClick={()=>{router.push(`/create?status=${TaskStatus.InProgress}`)}}
              className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
@@ -242,7 +242,7 @@ const MainPage = ({name}:{name:string}) => {
             /> */}
             <button 
            
-             onClick={()=>{router.push(`/create?toDo=${TaskStatus.UnderReview}`)}}
+             onClick={()=>{router.push(`/create?status=${TaskStatus.UnderReview}`)}}
              className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
@@ -268,7 +268,7 @@ const MainPage = ({name}:{name:string}) => {
               hrAgo="4 days ago"
             /> */}
             <button
-             onClick={()=>{router.push(`/create?toDo=${TaskStatus.Finished}`)}}
+             onClick={()=>{router.push(`/create?status=${TaskStatus.Finished}`)}}
               className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
