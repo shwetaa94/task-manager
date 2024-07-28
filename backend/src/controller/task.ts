@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Task from "../models/task";
 import User from "../models/user";
 
-interface AuthReq extends Request {
+export interface AuthReq extends Request {
   email?: string;
   id?: string;
   name?: string;
