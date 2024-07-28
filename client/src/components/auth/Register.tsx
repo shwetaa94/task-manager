@@ -15,7 +15,7 @@ const Register = () => {
     try {
       console.log(name, email, password);
       const response = await fetch(
-        "http://localhost:8000/api/v1/auth/register",
+        "https://task-manager-backend-fmig.onrender.com/api/v1/auth/register",
         {
           method: "POST",
           headers: {

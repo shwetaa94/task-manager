@@ -26,7 +26,7 @@ const CreateTask: React.FC = () => {
 
     try {
       const method = id?"PUT":"POST"
-      const url = id?`http://localhost:8000/api/v1/task/${id}`:"http://localhost:8000/api/v1/task"
+      const url = id?`https://task-manager-backend-fmig.onrender.com/api/v1/task/${id}`:"https://task-manager-backend-fmig.onrender.com/api/v1/task"
       const response = await fetch(url, {
         method ,
         headers: {

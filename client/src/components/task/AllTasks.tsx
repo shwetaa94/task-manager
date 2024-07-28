@@ -44,7 +44,7 @@ const MainPage = () => {
       const token = localStorage.getItem("token");
 
       try {
-        const response = await fetch("http://localhost:8000/api/v1/task", {
+        const response = await fetch("https://task-manager-backend-fmig.onrender.com/api/v1/task", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
