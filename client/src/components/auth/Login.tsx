@@ -1,19 +1,25 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../variable";
 
 const Login: React.FC = () => {
   const router = useRouter();
-  const token = localStorage.getItem("token");
-  if (token) {
-    router.push("/");
-  }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); 
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      // Rest of your code
+      if (token) {
+        router.push("/");
+      }
+    }
+  }, [router]);
+  
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 

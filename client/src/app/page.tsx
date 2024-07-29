@@ -6,13 +6,21 @@ import { useEffect, useState } from "react";
 import { BACKEND_URL } from "@/components/variable";
 
 export default function Home() {
+
   const router = useRouter();
-  const token = localStorage.getItem("token");
-  if (!token) {
-    router.push("/");
-  }
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      // Rest of your code
+      if (token) {
+        router.push("/");
+      }
+    }
+  }, [router]);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     async function getDetails() {

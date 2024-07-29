@@ -56,6 +56,7 @@ const Card: NextPage<CardType> = ({
       return false;
     }
   };
+
   return (
     <div className="flex flex-col items-start justify-start gap-[16px] min-w-[193px] max-w-[257px] text-left text-xl text-dimgray-200 font-inter">
       <div className="self-stretch rounded-lg bg-whitesmoke-100 flex flex-col items-start justify-start p-3 gap-[16px] text-base text-dimgray-100 border-[1px] border-solid border-gainsboro-200">
