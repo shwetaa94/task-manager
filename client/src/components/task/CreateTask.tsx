@@ -13,7 +13,7 @@ import { BACKEND_URL } from "../variable";
 
 const CreateTask: React.FC = () => {
   const router = useRouter();
-  const [id, setId] = useState("")
+  const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("To do");
@@ -32,14 +32,16 @@ const CreateTask: React.FC = () => {
         status,
         priority,
         deadline,
-      })
-      const method = id?"PUT":"POST"
-      const url = id?`${BACKEND_URL}/api/v1/task/${id}`:`${BACKEND_URL}/api/v1/task`
+      });
+      const method = id ? "PUT" : "POST";
+      const url = id
+        ? `${BACKEND_URL}/api/v1/task/${id}`
+        : `${BACKEND_URL}/api/v1/task`;
       const response = await fetch(url, {
-        method ,
+        method,
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           title,
@@ -65,14 +67,13 @@ const CreateTask: React.FC = () => {
   useEffect(() => {
     // Extract query parameters from the URL
     const params = new URLSearchParams(window.location.search);
-    setId(params.get('id')||"")
-    setTitle(params.get('title')||"")
-    setDescription(params.get('description')||"")
-    setStatus(params.get('status')||"To do")
-    setPriority(params.get('priority')||"Not selected")
-    setDeadline(params.get('Deadline')||"")
-}, []);
- 
+    setId(params.get("id") || "");
+    setTitle(params.get("title") || "");
+    setDescription(params.get("description") || "");
+    setStatus(params.get("status") || "To do");
+    setPriority(params.get("priority") || "Not selected");
+    setDeadline(params.get("Deadline") || "");
+  }, []);
 
   return (
     <div className="w-screen flex flex-col items-start justify-start mx-6 pb-[513px] box-border gap-[32px] leading-[normal] tracking-[normal] text-left text-base text-silver-200 font-inter mq450:gap-[16px] overflow-hidden">
@@ -80,7 +81,11 @@ const CreateTask: React.FC = () => {
         <header className="w-full mt-6 flex flex-row items-center justify-between text-left text-base text-gray font-inter">
           <div className="flex flex-row items-center justify-start gap-[16px] w-full">
             <div className="flex gap-6 ">
-              <div onClick={()=>{ router.push("/");}}>
+              <div
+                onClick={() => {
+                  router.push("/");
+                }}
+              >
                 <RxCross2 className="h-6 w-6 relative min-h-[24px]" />
               </div>
               <BsArrowsAngleExpand className="h-5 w-5 relative min-h-[24px]" />
@@ -109,7 +114,7 @@ const CreateTask: React.FC = () => {
             <input
               className={`w-full border-none outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-10xl ${
                 title ? "text-black" : "text-darkgray"
-              } mt-2`}
+              } mt-2 text-3xl`}
               placeholder="Task Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -195,7 +200,7 @@ const CreateTask: React.FC = () => {
                   type="submit"
                 >
                   <div className="relative text-xl font-inter text-white text-left inline-block min-w-[71px] whitespace-nowrap mq450:text-base">
-                    {id? "Update Task":"Create Task"}
+                    {id ? "Update Task" : "Create Task"}
                   </div>
                 </button>
               </div>

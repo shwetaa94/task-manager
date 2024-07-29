@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import type { NextPage } from "next";
 import TaskHeader from "./Header";
 import Card from "./Card";
@@ -10,7 +10,7 @@ import { MdOutlineSort } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 import { IoIosSearch } from "react-icons/io";
 import { GoQuestion } from "react-icons/go";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BACKEND_URL } from "../variable";
 
@@ -23,23 +23,26 @@ interface Task {
   date: string;
   onDelete: (id: string) => void;
 }
- enum TaskStatus {
+
+enum TaskStatus {
   Todo = "To do",
   InProgress = "In Progress",
   UnderReview = "Under Review",
   Finished = "Finished",
 }
 
- enum TaskPriority {
+enum TaskPriority {
   NotSelected = "Not selected",
   Low = "Low",
   Medium = "Medium",
   Urgent = "Urgent",
 }
-const MainPage = ({name}:{name:string}) => {
+
+const MainPage: NextPage<{ name: string }> = ({ name }) => {
   const router = useRouter();
-  const [data, setData] = useState([]);
-  const [error, setError] = useState("");
+  const [data, setData] = useState<Task[]>([]);
+  const [error, setError] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,18 +70,29 @@ const MainPage = ({name}:{name:string}) => {
     };
 
     fetchData();
- },[]);
+  }, []);
 
   if (error) {
     return <div className="error">{error}</div>;
   }
+
   const handleTaskDeleted = (id: string) => {
-    setData(prevData => prevData.filter((task:Task) => task._id !== id));
+    setData(prevData => prevData.filter(task => task._id !== id));
   };
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredTasks = data.filter(task =>
+    task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    task.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const renderTasks = (status: string) => {
-    return data
-      .filter((task:Task) => task.status === status)
-      .map((task:Task) => (
+    return filteredTasks
+      .filter(task => task.status === status)
+      .map(task => (
         <Card
           key={task._id}
           id={task._id}
@@ -87,17 +101,17 @@ const MainPage = ({name}:{name:string}) => {
           description={task.description}
           priority={task.priority}
           date={task.date}
-          onDelete={() => handleTaskDeleted(task._id )}
+          onDelete={() => handleTaskDeleted(task._id)}
         />
       ));
   };
-  
+
   return (
     <div className="h-screen pl-4 flex flex-col bg-whitesmoke-100 items-start justify-start gap-[16px] leading-[normal] tracking-[normal]">
-      <header className="w-full h-auto self-stretch flex flex-col items-end justify-start gap-[16px]  text-left text-[48px] text-gray-500 font-barlow">
+      <header className="w-full h-auto self-stretch flex flex-col items-end justify-start gap-[16px] text-left text-[48px] text-gray-500 font-barlow">
         <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">
           <div className="[text-decoration:none] relative font-semibold text-[inherit] whitespace-nowrap">
-           { `Good morning, ${name}`}
+            {`Good morning, ${name}`}
           </div>
           <div className="flex flex-row items-center justify-start gap-[8px] text-base font-inter">
             <a className="[text-decoration:none] relative text-[inherit] inline-block min-w-[125px] whitespace-nowrap">{`Help & feedback`}</a>
@@ -122,10 +136,14 @@ const MainPage = ({name}:{name:string}) => {
           />
         </div>
         <div className="w-full self-stretch flex flex-row items-center justify-between gap-[20px] text-base text-gray-300 font-inter">
-          <div className="w-[196px] rounded-lg bg-white box-border  flex flex-row items-center justify-between py-1.5 px-2 border-[1px] border-solid border-whitesmoke-300">
-            <a className="[text-decoration:none] relative text-[inherit] inline-block min-w-[53px]">
-              Search
-            </a>
+          <div className="w-[196px] rounded-lg bg-white box-border flex flex-row items-center justify-between py-1.5 px-2 border-[1px] border-solid border-whitesmoke-300">
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={handleSearch}
+              className={`w-full text-black border-none bg-transparent outline-none`}
+            />
             <IoIosSearch className="h-6 w-6 relative " />
           </div>
           <div className="flex flex-row items-center justify-start gap-[16px] max-w-full">
@@ -154,8 +172,8 @@ const MainPage = ({name}:{name:string}) => {
               </div>
             </div>
             <button
-            onClick={()=>{router.push('/create')}}
-             className="cursor-pointer py-1.5 px-[7px] bg-[transparent] shadow-[0px_12px_16px_rgba(186,_186,_186,_0.2)_inset,_0px_1px_8px_rgba(0,_0,_0,_0.25)] rounded-lg [background:linear-gradient(180deg,_#4c38c2,_#2f2188)] flex flex-row items-center justify-center gap-[8px] whitespace-nowrap border-[1px] border-solid border-blueviolet hover:bg-mediumslateblue-200 hover:box-border hover:border-[1px] hover:border-solid hover:border-mediumslateblue-100">
+              onClick={() => { router.push('/create') }}
+              className="cursor-pointer py-1.5 px-[7px] bg-[transparent] shadow-[0px_12px_16px_rgba(186,_186,_186,_0.2)_inset,_0px_1px_8px_rgba(0,_0,_0,_0.25)] rounded-lg [background:linear-gradient(180deg,_#4c38c2,_#2f2188)] flex flex-row items-center justify-center gap-[8px] whitespace-nowrap border-[1px] border-solid border-blueviolet hover:bg-mediumslateblue-200 hover:box-border hover:border-[1px] hover:border-solid hover:border-mediumslateblue-100">
               <div className="relative text-base font-medium font-inter text-white text-left inline-block min-w-[88px]">
                 Create new
               </div>
@@ -164,9 +182,8 @@ const MainPage = ({name}:{name:string}) => {
           </div>
         </div>
       </header>
-      {/* all tasks are here */}
-      <section className="w-full  h-auto self-stretch rounded-lg flex flex-row flex-wrap items-start justify-center py-4  px-4 gap-[12px] text-left text-xl text-dimgray-200 font-inter">
-        <div className="w-full bg-white p-4 h-auto self-stretch flex flex-row items-start justify-between ">
+      <section className="w-full h-auto self-stretch rounded-lg flex flex-row flex-wrap items-start justify-center py-4 px-4 gap-[12px] text-left text-xl text-dimgray-200 font-inter">
+        <div className="w-full bg-white p-4 h-auto self-stretch flex flex-row items-start justify-between">
           {/* todo */}
           <div className="flex-1 flex flex-col items-start justify-start gap-[14px] min-w-[194px] max-w-[257px]">
             <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">
@@ -176,25 +193,16 @@ const MainPage = ({name}:{name:string}) => {
               <MdOutlineSort className="h-6 w-6 relative  min-h-[24px]" />
             </div>
             {renderTasks(TaskStatus.Todo)}
-
-            {/* <Card
-              toDo="To do"
-              title="Implement User Authentication"
-              description="Develop and integrate user authentication using email and password."
-              status="Urgent"
-              date="2024-08-15"
-              hrAgo="1 hr ago"
-            /> */}
-            <button 
-              onClick={()=>{router.push(`/create?status=${TaskStatus.Todo}`)}}
-              className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
+            <button
+              onClick={() => { router.push(`/create?status=${TaskStatus.Todo}`) }}
+              className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)] flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
               </div>
               <FiPlus className="h-6 w-6 text-white relative " />
             </button>
           </div>
-          {/* in porgress */}
+          {/* in progress */}
           <div className="flex-1 flex flex-col items-start justify-start gap-[16px] min-w-[194px] max-w-[257px]">
             <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">
               <div className="w-[126px] relative inline-block mq450:text-base">
@@ -203,25 +211,9 @@ const MainPage = ({name}:{name:string}) => {
               <MdOutlineSort className="h-6 w-6 relative  min-h-[24px]" />
             </div>
             {renderTasks(TaskStatus.InProgress)}
-            {/* <Card
-              toDo="in progress"
-              title="Design Home Page UI"
-              description="Develop and integrate user authentication using email and password."
-              status="Medium"
-              date="2024-08-15"
-              hrAgo="1 hr ago"
-            />
-            <Card
-              toDo="in progress"
-              title="Conduct User Feedback Survey"
-              description="Collect and analyze user feedback to improve app features."
-              status="Low"
-              date="2024-08-05"
-              hrAgo="3 hr ago"
-            /> */}
             <button
-           onClick={()=>{router.push(`/create?status=${TaskStatus.InProgress}`)}}
-             className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
+              onClick={() => { router.push(`/create?status=${TaskStatus.InProgress}`) }}
+              className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)] flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
               </div>
@@ -237,25 +229,16 @@ const MainPage = ({name}:{name:string}) => {
               <MdOutlineSort className="h-6 w-6 relative  min-h-[24px]" />
             </div>
             {renderTasks(TaskStatus.UnderReview)}
-            {/* <Card
-              toDo="Under review"
-              title="Integrate Cloud Storage"
-              description="Enable cloud storage for note backup and synchronization."
-              status="Urgent"
-              date="2024-08-20"
-              hrAgo="2 days  ago"
-            /> */}
-            <button 
-           
-             onClick={()=>{router.push(`/create?status=${TaskStatus.UnderReview}`)}}
-             className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
+            <button
+              onClick={() => { router.push(`/create?status=${TaskStatus.UnderReview}`) }}
+              className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)] flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
               </div>
               <FiPlus className="h-6 w-6 text-white relative " />
             </button>
           </div>
-          {/* finish */}
+          {/* finished */}
           <div className="flex-1 flex flex-col items-start justify-start gap-[16px] min-w-[194px] max-w-[257px]">
             <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">
               <div className="w-[126px] relative inline-block mq450:text-base">
@@ -264,17 +247,9 @@ const MainPage = ({name}:{name:string}) => {
               <MdOutlineSort className="h-6 w-6 relative  min-h-[24px]" />
             </div>
             {renderTasks(TaskStatus.Finished)}
-            {/* <Card
-              toDo="Finished"
-              title="Test Cross-browser Compatibility"
-              description="Ensure the app works seamlessly across different web browsers."
-              status="Medium"
-              date="2024-07-30"
-              hrAgo="4 days ago"
-            /> */}
             <button
-             onClick={()=>{router.push(`/create?status=${TaskStatus.Finished}`)}}
-              className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)]  flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
+              onClick={() => { router.push(`/create?status=${TaskStatus.Finished}`) }}
+              className="cursor-pointer [border:none] p-2 bg-[transparent] self-stretch rounded-lg [background:linear-gradient(180deg,_#3a3a3a,_#202020)] flex flex-row items-center justify-between whitespace-nowrap gap-[20px]">
               <div className="relative text-base font-inter text-gainsboro-100 text-left inline-block min-w-[67px]">
                 Add new
               </div>

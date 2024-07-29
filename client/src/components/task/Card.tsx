@@ -23,7 +23,7 @@ const Card: NextPage<CardType> = ({
   description,
   priority,
   date,
-  onDelete
+  onDelete,
 }) => {
   const router = useRouter();
 
@@ -55,7 +55,7 @@ const Card: NextPage<CardType> = ({
       console.error("An unexpected error occurred while deleting the task");
       return false;
     }
-  }
+  };
   return (
     <div className="flex flex-col items-start justify-start gap-[16px] min-w-[193px] max-w-[257px] text-left text-xl text-dimgray-200 font-inter">
       <div className="self-stretch rounded-lg bg-whitesmoke-100 flex flex-col items-start justify-start p-3 gap-[16px] text-base text-dimgray-100 border-[1px] border-solid border-gainsboro-200">
@@ -72,14 +72,15 @@ const Card: NextPage<CardType> = ({
               >
                 <HiOutlinePencil className="text-xl" />
               </span>
-              <span 
+              <span
                 onClick={() => deleteTask(id || "")}
-                className="cursor-pointer">
+                className="cursor-pointer"
+              >
                 <MdDelete className="text-xl" />
               </span>
             </div>
             <div className="self-stretch flex flex-col items-start justify-start gap-[4px]">
-              <div className="self-stretch relative font-medium">{title}</div>
+              <div className="self-stretch relative text-xl">{title}</div>
               <div className="self-stretch relative text-sm text-gray-300">
                 {description}
               </div>
