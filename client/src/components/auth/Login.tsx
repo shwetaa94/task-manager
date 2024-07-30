@@ -8,18 +8,18 @@ const Login: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); 
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('token');
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
       // Rest of your code
       if (token) {
         router.push("/");
       }
     }
   }, [router]);
-  
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -29,10 +29,10 @@ const Login: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           email,
-          password
-         }),
+          password,
+        }),
       });
 
       const data = await response.json();
@@ -65,7 +65,9 @@ const Login: React.FC = () => {
         >
           <div className="self-stretch flex flex-col items-start justify-start gap-[24px]">
             <input
-              className="w-full border-none outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl text-darkgray min-w-[250px] cursor-pointer"
+              className={`w-full outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl text-darkgray min-w-[250px] cursor-pointer ${
+                email ? "border border-blue-200" : "border-none"
+              }`}
               placeholder="Your email"
               type="email"
               value={email}
@@ -73,7 +75,9 @@ const Login: React.FC = () => {
               required
             />
             <input
-              className="w-full border-none outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl text-darkgray min-w-[250px] cursor-pointer"
+              className={`w-full outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border  font-inter text-xl text-darkgray min-w-[250px] cursor-pointer ${
+                password ? "border border-blue-200" : "border-none"
+              }`}
               placeholder="Password"
               type="password"
               value={password}
@@ -81,6 +85,7 @@ const Login: React.FC = () => {
               required
             />
           </div>
+
           <button
             className="cursor-pointer py-3 px-5 bg-transparent self-stretch shadow-[0px_12px_16px_rgba(186,_186,_186,_0.2)_inset,_0px_4px_16px_rgba(0,_0,_0,_0.1)] rounded-lg bg-gradient-to-b from-purple-500 to-blue-900 border border-blueviolet hover:bg-gainsboro hover:border-mediumslateblue"
             type="submit"

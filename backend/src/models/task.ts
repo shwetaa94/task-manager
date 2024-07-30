@@ -9,24 +9,29 @@ interface ITask extends Document {
   priority?: TaskPriority;
   deadline?: Date;
   user: Schema.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-const TaskSchema = new Schema<ITask>({
-  title: { type: String, required: true },
-  description: { type: String, default: "" },
-  status: {
-    type: String,
-    enum: Object.values(TaskStatus),
-    default: TaskStatus.Todo,
-    required: true,
+const TaskSchema = new Schema<ITask>(
+  {
+    title: { type: String, required: true },
+    description: { type: String, default: "" },
+    status: {
+      type: String,
+      enum: Object.values(TaskStatus),
+      default: TaskStatus.Todo,
+      required: true,
+    },
+    priority: {
+      type: String,
+      enum: Object.values(TaskPriority),
+    },
+    deadline: { type: Date, default: null },
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
   },
-  priority: {
-    type: String,
-    enum: Object.values(TaskPriority)
-  },
-  deadline: { type: Date, default: null },
-  user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-});
+  { timestamps: true }
+);
 
 const Task = model<ITask>("Task", TaskSchema);
 

@@ -13,8 +13,8 @@ const Register = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('token');
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
       // Rest of your code
       if (token) {
         router.push("/");
@@ -26,14 +26,13 @@ const Register = () => {
     e.preventDefault();
     try {
       console.log(name, email, password);
-      const response = await fetch(`${BACKEND_URL}/api/v1/auth/register`,{
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name: name, email: email, password: password }),
-        }
-      );
+      const response = await fetch(`${BACKEND_URL}/api/v1/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: name, email: email, password: password }),
+      });
 
       const data = await response.json();
 
@@ -65,7 +64,9 @@ const Register = () => {
         >
           <div className="self-stretch flex flex-col items-start justify-start gap-6">
             <input
-              className="w-full border-none outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl text-darkgray min-w-[250px] cursor-pointer"
+              className={`w-full outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl text-darkgray min-w-[250px] cursor-pointer ${
+                name ? "border border-blue-200" : "border-none"
+              }`}
               placeholder="Your name"
               type="text"
               value={name}
@@ -73,7 +74,9 @@ const Register = () => {
               required
             />
             <input
-              className="w-full border-none outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl text-darkgray min-w-[250px] cursor-pointer"
+              className={`w-full outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl text-darkgray min-w-[250px] cursor-pointer ${
+                email ? "border border-blue-200" : "border-none"
+              }`}
               placeholder="Your email"
               type="email"
               value={email}
@@ -81,7 +84,9 @@ const Register = () => {
               required
             />
             <input
-              className="w-full border-none outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl text-darkgray min-w-[250px]"
+              className={`w-full outline-none focus:outline-none bg-whitesmoke h-14 rounded-lg flex items-center justify-start py-4 px-3 box-border font-inter text-xl text-darkgray min-w-[250px] ${
+                password ? "border border-blue-200" : "border-none"
+              }`}
               placeholder="Password"
               type="password"
               value={password}
@@ -89,6 +94,7 @@ const Register = () => {
               required
             />
           </div>
+
           <button
             className="cursor-pointer py-3 px-5 bg-transparent self-stretch shadow-inset flex items-center justify-center rounded-lg bg-gradient-to-b from-purple-500 to-blue-900 border border-blueviolet hover:bg-gainsboro hover:border-mediumslateblue"
             type="submit"

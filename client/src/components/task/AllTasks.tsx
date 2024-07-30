@@ -27,6 +27,8 @@ interface Task {
   status: string;
   priority: string;
   date: string;
+  createdAt: Date;
+  updatedAt: Date;
   onDelete: (id: string) => void;
 }
 
@@ -165,6 +167,8 @@ const MainPage: NextPage<{ name: string }> = ({ name }) => {
                         description={task.description}
                         priority={task.priority}
                         date={task.date}
+                        createdAt= {task.createdAt}
+                        updatedAt= {task.updatedAt}
                         onDelete={() => handleTaskDeleted(task._id)}
                       />
                     </div>
@@ -220,7 +224,7 @@ const MainPage: NextPage<{ name: string }> = ({ name }) => {
             description="Sync your notes across all devices. Stay productive whether you're on your phone, tablet, or computer."
           />
         </div>
-        <div className="w-full self-stretch flex flex-row items-center justify-between gap-[20px] text-base text-gray-300 font-inter">
+        <div className="w-full self-stretch flex flex-row items-center justify-between gap-[20px] text-base text-gray-600 font-inter">
           <div className="w-[196px] rounded-lg bg-white box-border flex flex-row items-center justify-between py-1.5 px-2 border-[1px] border-solid border-whitesmoke-300">
             <input
               type="text"

@@ -13,8 +13,13 @@ export type CardType = {
   description?: string;
   priority?: string;
   date?: string;
+  createdAt: Date;
+  updatedAt: Date;
   onDelete?: (id: string) => void;
 };
+import { differenceInYears, differenceInMonths, differenceInDays, differenceInHours, differenceInMinutes } from 'date-fns';
+
+
 
 const Card: NextPage<CardType> = ({
   id,
@@ -23,6 +28,8 @@ const Card: NextPage<CardType> = ({
   description,
   priority,
   date,
+  createdAt,
+  updatedAt,
   onDelete,
 }) => {
   const router = useRouter();
@@ -57,6 +64,33 @@ const Card: NextPage<CardType> = ({
     }
   };
 
+  const getTimeDifference = (createdAt: Date, updatedAt?: Date): string => {
+    const now = new Date();
+    const referenceDate = updatedAt ? new Date(updatedAt) : new Date(createdAt);
+  
+    const years = differenceInYears(now, referenceDate);
+    if (years > 0) {
+      return `${years} year${years > 1 ? 's' : ''} ago`;
+    }
+  
+    const months = differenceInMonths(now, referenceDate);
+    if (months > 0) {
+      return `${months} month${months > 1 ? 's' : ''} ago`;
+    }
+  
+    const days = differenceInDays(now, referenceDate);
+    if (days > 0) {
+      return `${days} day${days > 1 ? 's' : ''} ago`;
+    }
+  
+    const hours = differenceInHours(now, referenceDate);
+    if (hours > 0) {
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    }
+  
+    const minutes = differenceInMinutes(now, referenceDate);
+    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+  };
   return (
     <div className="flex flex-col items-start justify-start gap-[16px] min-w-[193px] max-w-[257px] text-left text-xl text-dimgray-200 font-inter">
       <div className="self-stretch rounded-lg bg-whitesmoke-100 flex flex-col items-start justify-start p-3 gap-[16px] text-base text-dimgray-100 border-[1px] border-solid border-gainsboro-200">
@@ -82,13 +116,13 @@ const Card: NextPage<CardType> = ({
             </div>
             <div className="self-stretch flex flex-col items-start justify-start gap-[4px]">
               <div className="self-stretch relative text-xl">{title}</div>
-              <div className="self-stretch relative text-sm text-gray-300">
+              <div className="self-stretch relative text-sm text-gray-700">
                 {description}
               </div>
             </div>
           </div>
           <div className="rounded-lg bg-salmon flex flex-row items-center justify-center py-1.5 px-2 text-xs text-white">
-            {status === "in progress" ? (
+            {status === "In Progress" ? (
               <div className="relative inline-block min-w-[39px] p-2 rounded-lg bg-orange-500 text-white">
                 {status}
               </div>
@@ -105,9 +139,10 @@ const Card: NextPage<CardType> = ({
             </div>
           </div>
         </div>
-        <div className="self-stretch flex flex-row items-center justify-start py-0 pr-[178px] pl-0 gap-[20px] text-sm text-gray-300">
+        <div className="self-stretch flex flex-row items-center justify-start py-0 pr-[178px] pl-0 gap-[20px] text-sm text-gray-600">
           <div className="relative font-medium inline-block min-w-[53px] whitespace-nowrap">
-            2 days ago
+            {getTimeDifference(createdAt,
+  updatedAt)}
           </div>
         </div>
       </div>

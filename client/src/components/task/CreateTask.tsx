@@ -26,13 +26,6 @@ const CreateTask: React.FC = () => {
     e.preventDefault();
 
     try {
-      console.log({
-        title,
-        description,
-        status,
-        priority,
-        deadline,
-      });
       const method = id ? "PUT" : "POST";
       const url = id
         ? `${BACKEND_URL}/api/v1/task/${id}`
