@@ -1,7 +1,8 @@
 // src/db.ts
 import mongoose from "mongoose";
 
-const MONGO_URI = "mongodb://127.0.0.1:27017/task"
+const MONGO_URI = "mongodb+srv://Shweta9416:Shwetaecommerce@cluster0.opu30dm.mongodb.net/task" 
+// "mongodb://127.0.0.1:27017/task"
 // "mongodb+srv://Shweta9416:Shwetaecommerce@cluster0.opu30dm.mongodb.net/task" ||
 const connectDB = async () => {
   try {
