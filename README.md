@@ -1,6 +1,3 @@
-Here's the updated `README.md` with the adjusted details:
-
----
 
 # Task Manager App
 
