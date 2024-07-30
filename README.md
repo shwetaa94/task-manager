@@ -1,7 +1,7 @@
 
 # Task Manager App
 
-A modern task management application built with React, TypeScript, Tailwind CSS, and Vite. This app allows users to create, edit, and delete tasks with various attributes including title, description, status, priority, and deadline.
+A modern task management application built with Next, TypeScript, Tailwind CSS, MongoDB. This app allows users to create, edit, and delete tasks with various attributes including title, description, status, priority, and deadline.
 
 
 ## Deployment
@@ -19,10 +19,10 @@ The application is deployed and can be accessed at [https://task-manager-36i8.ve
 ## Technologies Used
 
 - **Frontend**:
-  - React
+  - Next
   - TypeScript
   - Tailwind CSS
-  - Vite
+  - MOngoDB
   - `react-beautiful-dnd`
 
 ## Getting Started
