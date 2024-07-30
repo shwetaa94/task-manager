@@ -15,11 +15,11 @@ export default function Home() {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('token');
       // Rest of your code
-      if (token) {
-        router.push("/");
+      if (!token) {
+        router.push("/login");
       }
     }
-  }, [router]);
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
